@@ -7,15 +7,17 @@ const Header = () => {
   return (
     <SafeAreaView className="bg-green-300 p-4 space-y-2 rounded-b-3xl">
       <View className="justify-between items-center flex-row">
-        <Text className="text-3xl">Logo</Text>
+        <Text className="text-2xl">Logo</Text>
         <TouchableOpacity className="flex justify-center items-center p-2 rounded-full w-10 h-10">
           <Octicons name="bell-fill" size={20} color="black" />
         </TouchableOpacity>
       </View>
-      <Text className="text-3xl font-semibold">Welcome, Kenneth 👋</Text>
+      <Text className="text-xl font-semibold text-zinc-800">
+        Welcome, Kenneth 👋
+      </Text>
       <View className="space-y-1">
-        <Text className="font-medium">Your Outstanding Amount</Text>
-        <Text className="font-semibold text-5xl">₱ 18,032</Text>
+        <Text className="text-xs text-zinc-800">Your Outstanding Amount</Text>
+        <Text className="font-semibold text-5xl text-zinc-800">₱ 18,032</Text>
       </View>
       <View className="flex-row justify-between">
         <Text>

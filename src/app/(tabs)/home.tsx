@@ -15,7 +15,8 @@ const HomePage = () => {
   return (
     <ScrollView
       contentContainerStyle={{
-        flexGrow: 1,
+        // flexGrow: 1,
+
         backgroundColor: "white",
       }}
       refreshControl={
@@ -23,13 +24,14 @@ const HomePage = () => {
       }
     >
       <Header />
-      <View className="flex-1 mx-4 my-2 p-3 border border-gray-300 rounded-lg">
-        <Text className="text-3xl font-medium">Unpaid Due</Text>
-        <Text>Homepage</Text>
+      <View className="h-56 mx-4 my-2 p-3 border border-gray-300 rounded-lg">
+        <Text className="text-2xl font-medium">Unpaid Due</Text>
       </View>
-      <View className="flex-1 mx-4 my-2 p-3 border border-gray-300 rounded-lg">
-        <Text className="text-3xl font-medium">Last Transaction</Text>
-        <Text>Homepage</Text>
+      <View className="h-56 mx-4 my-2 p-3 border border-gray-300 rounded-lg">
+        <Text className="text-2xl font-medium">Last Transaction</Text>
+      </View>
+      <View className="h-56 mx-4 my-2 p-3 border border-gray-300 rounded-lg">
+        <Text className="text-2xl font-medium">Reminders</Text>
       </View>
     </ScrollView>
   );

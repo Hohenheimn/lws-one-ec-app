@@ -20,7 +20,7 @@ const TabLayout = () => {
         name="transaction"
         options={{
           tabBarShowLabel: false,
-          headerTitle: "Transaction",
+          headerTitle: "History Of Transaction",
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#86EFAC",
           headerStyle: {
