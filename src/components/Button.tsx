@@ -6,36 +6,29 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
+  TouchableOpacityProps,
 } from "react-native";
 import { twMerge } from "tailwind-merge";
 
-type Props = {
-  onPress?: () => void;
-  onPressIn?: () => void;
-  onPressOut?: () => void;
-  onLongPress?: () => void;
+type ButtonProps = {
   title: string;
   buttonClassname?: string;
   textClassname?: string;
   appearance: "primary" | "secondary" | "default";
 };
 
+type Props = ButtonProps & TouchableOpacityProps;
+
 const Button = ({
-  onPress,
   title,
   buttonClassname,
   textClassname,
   appearance,
-  onPressIn,
-  onPressOut,
-  onLongPress,
+  ...rest
 }: Props) => {
   return (
     <TouchableOpacity
-      onPress={onPress}
-      onPressIn={onPressIn}
-      onPressOut={onPressOut}
-      onLongPress={onLongPress}
+      {...rest}
       className={twMerge(
         " flex items-center py-3 bg-primary text-center rounded-lg",
         buttonClassname
