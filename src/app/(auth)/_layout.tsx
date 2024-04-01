@@ -35,7 +35,7 @@ const TabLayout = () => {
         name="account"
         options={{
           tabBarShowLabel: false,
-          headerTitle: "Profile",
+          headerShown: false,
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#86EFAC",
           headerStyle: {
