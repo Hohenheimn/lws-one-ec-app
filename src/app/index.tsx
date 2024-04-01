@@ -1,15 +1,44 @@
 import React from "react";
-import { Link } from "expo-router";
-import { View, Text } from "react-native";
+import { Link, useRouter } from "expo-router";
+import { Redirect } from "expo-router";
+import { View, Text, ImageBackground } from "react-native";
+
+import Button from "../components/Button";
+import Heading from "../components/Heading";
+import Paragraph from "../components/Paragraph";
 
 const HomeScreen = () => {
+  const router = useRouter();
   return (
-    <View className=" flex-1 justify-center items-center gap-5">
-      <Text className=" text-2xl font-bold">
-        Welcome, This is the front page
-      </Text>
-      <Link href={"/sign-in"}>Go to Sign In</Link>
-      <Link href={"/sign-up"}>Go to Sign Up</Link>
+    <View className=" flex-1 justify-center items-center gap-5 ">
+      <ImageBackground
+        source={require("../../assets/images/welcome.png")}
+        className=" flex-1 w-full"
+        resizeMode="contain"
+      />
+      <View className=" pb-20 pt-5 gap-5 px-5">
+        <Heading size={"large"} classname=" mb-2">
+          Welcome, This is the front page
+        </Heading>
+        <Paragraph classname=" text-gray-400 mb-5">
+          Pay bills, manage your account, and stay in control - all in one
+          place.
+        </Paragraph>
+        <Button
+          title="Sign In"
+          appearance="primary"
+          buttonClassname="mb-2"
+          onPress={() => {
+            router.push("/sign-in");
+          }}
+        />
+        <Paragraph classname=" text-center">
+          Don't have an Account ?{" "}
+          <Link href={"/sign-up"} className=" font-bold text-primary">
+            Sign Up Here
+          </Link>
+        </Paragraph>
+      </View>
     </View>
   );
 };
