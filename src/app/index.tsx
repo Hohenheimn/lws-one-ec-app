@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useRouter } from "expo-router";
-import { Redirect } from "expo-router";
-import { View, Text, ImageBackground } from "react-native";
+import { View, ImageBackground } from "react-native";
 
 import Button from "../components/Button";
 import Heading from "../components/Heading";
@@ -16,7 +15,7 @@ const HomeScreen = () => {
         className=" flex-1 w-full"
         resizeMode="contain"
       />
-      <View className=" pb-20 pt-5 gap-5 px-5">
+      <View className=" pb-20 pt-5 space-y-5 px-5">
         <Heading size={"large"} classname=" mb-2">
           Welcome, This is the front page
         </Heading>
