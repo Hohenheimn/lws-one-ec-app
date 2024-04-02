@@ -16,7 +16,7 @@ import Paragraph from "../components/Paragraph";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Username is required"),
+  password: z.string().min(1, "Password is required"),
 });
 
 type formData = z.infer<typeof loginSchema>;
@@ -36,8 +36,8 @@ const SignInScreen = () => {
   });
 
   const onSubmitHandler = (data: formData) => {
-    console.log(data);
-    // signIn();
+    signIn();
+    router.push("/dashboard");
   };
   return (
     <KeyboardShift classname=" flex-1 justify-center items-center gap-5 ">

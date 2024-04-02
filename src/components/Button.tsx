@@ -7,6 +7,7 @@ import {
   ViewStyle,
   TextStyle,
   TouchableOpacityProps,
+  ActivityIndicator,
 } from "react-native";
 import { twMerge } from "tailwind-merge";
 
@@ -15,6 +16,7 @@ type ButtonProps = {
   buttonClassname?: string;
   textClassname?: string;
   appearance: "primary" | "secondary" | "default";
+  loading?: boolean;
 };
 
 type Props = ButtonProps & TouchableOpacityProps;
@@ -24,18 +26,28 @@ const Button = ({
   buttonClassname,
   textClassname,
   appearance,
+  loading,
   ...rest
 }: Props) => {
   return (
     <TouchableOpacity
       {...rest}
       className={twMerge(
-        " flex items-center py-3 bg-primary text-center rounded-lg",
+        " flex items-center py-3 text-center rounded-lg",
+        appearance === "primary" && "bg-primary",
+        appearance === "secondary" && "bg-secondary ",
         buttonClassname
       )}
+      disabled={loading}
     >
-      <Text className={twMerge("text-base font-medium", textClassname)}>
-        {title}
+      <Text
+        className={twMerge(
+          "text-base font-medium",
+          appearance === "secondary" && "text-white",
+          textClassname
+        )}
+      >
+        {loading ? <ActivityIndicator color={"black"} /> : title}
       </Text>
     </TouchableOpacity>
   );

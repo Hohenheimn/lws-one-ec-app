@@ -12,7 +12,7 @@ const Heading = ({ children, size, classname }: Props) => {
   return (
     <Text
       className={twMerge(
-        `${size === "large" && " text-2xl"}  ${
+        `${size === "large" && " text-3xl"}  ${
           size === "medium" && " text-xl"
         } font-bold`,
         classname
