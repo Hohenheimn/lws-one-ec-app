@@ -55,6 +55,7 @@ const SignUpScreen = () => {
     console.log(data);
     router.push("/verification");
   };
+
   return (
     <KeyboardShift classname=" flex-1 justify-center items-center gap-5 ">
       <View className=" pb-10 pt-5 px-5">

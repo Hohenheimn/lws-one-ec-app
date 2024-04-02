@@ -37,7 +37,7 @@ const SignInScreen = () => {
 
   const onSubmitHandler = (data: formData) => {
     signIn();
-    router.push("/dashboard");
+    router.push("/home");
   };
   return (
     <KeyboardShift classname=" flex-1 justify-center items-center gap-5 ">
