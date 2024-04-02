@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Octicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 const AccountPage = () => {
   return (
@@ -9,10 +10,15 @@ const AccountPage = () => {
           <Octicons name="feed-person" size={72} color="white" />
         </View>
         <View>
-          <Text className="text-2xl font-semibold font-poppins-sb">
+          <Text className="text-2xl font-semibold font-poppins-sb text-center">
             Kenneth Pole
           </Text>
-          <Text className="text-xs font-poppins">Account Number: ABCD1234</Text>
+          <Text className="text-xs font-poppins text-center">
+            Account Number: ABCD1234
+          </Text>
+          <Link href="/account-details" className="font-poppins text-center">
+            Edit
+          </Link>
         </View>
       </View>
       <View className="flex-1 space-y-4 p-4">
