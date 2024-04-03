@@ -45,8 +45,9 @@ const RootLayoutNav = () => {
             name="meter-account"
             options={{
               headerTitle: "Meter Account",
+              headerShadowVisible: false,
               headerStyle: {
-                backgroundColor: "#86EFAC",
+                backgroundColor: "white",
               },
             }}
           />
