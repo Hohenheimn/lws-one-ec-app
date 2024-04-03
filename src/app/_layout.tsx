@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import { SessionProvider } from "@/context/AuthContext";
 import { useEffect } from "react";
 export { ErrorBoundary } from "expo-router";
 import { useFonts } from "expo-font";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -34,24 +34,29 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-function RootLayoutNav() {
+const RootLayoutNav = () => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="account-details"
-          options={{
-            headerTitle: "Edit Account Details",
-            headerShadowVisible: false,
-            headerStyle: {
-              backgroundColor: "#86EFAC",
-            },
-          }}
-        />
-      </Stack>
+      <SessionProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+          <Stack.Screen name="sign-up" options={{ headerShown: false }} />
+          <Stack.Screen name="verification" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="account-details"
+            options={{
+              headerTitle: "Edit Account Details",
+              headerShadowVisible: false,
+              headerStyle: {
+                backgroundColor: "#86EFAC",
+              },
+            }}
+          />
+        </Stack>
+      </SessionProvider>
     </QueryClientProvider>
   );
-}
+};

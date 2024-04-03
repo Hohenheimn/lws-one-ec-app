@@ -1,8 +1,10 @@
 import { View, Text, ScrollView, RefreshControl } from "react-native";
 import React, { useState } from "react";
-import Header from "@/src/components/Header";
+import Header from "@/src/components/Header/Header";
+import { useSession } from "@/context/AuthContext";
 
 const HomePage = () => {
+  const { signOut } = useSession();
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {

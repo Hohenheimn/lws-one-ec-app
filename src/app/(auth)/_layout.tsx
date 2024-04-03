@@ -1,7 +1,20 @@
+import React from "react";
+import { Redirect, Stack } from "expo-router";
+import { Text } from "react-native";
 import { Tabs } from "expo-router";
 import { Octicons } from "@expo/vector-icons";
 
-const TabLayout = () => {
+import { useSession } from "@/context/AuthContext";
+
+const AuthLayout = () => {
+  const { session, isLoading } = useSession();
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+  if (!session) {
+    return <Redirect href="/" />;
+  }
   return (
     <Tabs>
       <Tabs.Screen
@@ -50,4 +63,4 @@ const TabLayout = () => {
   );
 };
 
-export default TabLayout;
+export default AuthLayout;

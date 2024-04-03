@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { Octicons } from "@expo/vector-icons";
 import { useForm } from "react-hook-form";
-import TextFormController from "../components/form/TextFormController";
+import InputController from "../components/InputController";
 
 export type FormValues = {
   name: string;
@@ -13,14 +13,17 @@ export type FormValues = {
 };
 
 const AccountDetailsScreen = () => {
-  const form = useForm<FormValues>({
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm<FormValues>({
     mode: "onBlur",
     defaultValues: {
       name: "",
       email: "",
       phoneNumber: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
@@ -38,44 +41,43 @@ const AccountDetailsScreen = () => {
       <View className="flex-1 p-4">
         <Text className="font-poppins">Personal Information</Text>
 
-        <TextFormController
-          name="name"
-          control={form.control}
+        <InputController
+          type="default"
+          placeholder="Enter your full name..."
           label="Full Name"
-          required
+          errors={errors}
+          name={"name"}
+          control={control}
         />
-        <TextFormController
-          name="email"
-          control={form.control}
+        <InputController
+          type="default"
+          placeholder="Enter your email address..."
           label="Email Address"
-          required
-          pattern={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+          errors={errors}
+          name={"email"}
+          control={control}
         />
-        <TextFormController
-          name="phoneNumber"
-          control={form.control}
+        <InputController
+          type="default"
+          placeholder="Enter your phone number..."
           label="Phone Number"
-          keyboardType="number-pad"
-          required
-          pattern={/^(09|\+639)\d{9}$/}
+          errors={errors}
+          name={"phoneNumber"}
+          control={control}
         />
-        <TextFormController
-          name="username"
-          control={form.control}
-          label="Username"
-          required
-        />
-        <TextFormController
-          name="password"
-          control={form.control}
+        <InputController
+          type="default"
+          placeholder="Enter your password..."
           label="Password"
-          required
+          errors={errors}
+          name={"password"}
+          control={control}
           secureTextEntry
         />
 
         <TouchableOpacity
           className="bg-green-300 p-4 rounded-lg"
-          onPress={form.handleSubmit(onSubmit)}
+          onPress={handleSubmit(onSubmit)}
         >
           <Text className="text-center font-semibold font-poppins-sb">
             Submit

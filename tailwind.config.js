@@ -12,6 +12,11 @@ module.exports = {
         "poppins-sb": ["poppins-sb"],
         "poppins-b": ["poppins-b"],
       },
+      colors: {
+        primary: "#74e291",
+        secondary: "#445069",
+        black: "#272829",
+      },
     },
   },
   plugins: [],

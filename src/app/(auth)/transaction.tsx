@@ -1,7 +1,6 @@
 import { Text, ScrollView, RefreshControl, FlatList } from "react-native";
 import React, { useState } from "react";
 import TransactionCard from "@/src/components/TransactionCard";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const TransactionPage = () => {
   const [refreshing, setRefreshing] = useState(false);
