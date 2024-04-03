@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, RefreshControl } from "react-native";
 import React, { useState } from "react";
-import Header from "@/src/components/Header/Header";
 import { useSession } from "@/context/AuthContext";
+import Header from "@/src/components/Header";
 
 const HomePage = () => {
   const { signOut } = useSession();
