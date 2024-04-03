@@ -41,6 +41,15 @@ const RootLayoutNav = () => {
       <SessionProvider>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="meter-account"
+            options={{
+              headerTitle: "Meter Account",
+              headerStyle: {
+                backgroundColor: "#86EFAC",
+              },
+            }}
+          />
           <Stack.Screen name="sign-in" options={{ headerShown: false }} />
           <Stack.Screen name="sign-up" options={{ headerShown: false }} />
           <Stack.Screen name="verification" options={{ headerShown: false }} />
