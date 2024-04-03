@@ -6,6 +6,8 @@ import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useSession } from "@/context/AuthContext";
 
 import Button from "../components/Button";
@@ -35,7 +37,9 @@ const SignInScreen = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmitHandler = (data: formData) => {
+  const onSubmitHandler = async (data: formData) => {
+    const token = "galing sa response";
+    await AsyncStorage.setItem("token", token);
     signIn();
     router.push("/home");
   };

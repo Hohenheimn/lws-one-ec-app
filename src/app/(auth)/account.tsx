@@ -1,8 +1,11 @@
+import { Link } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Octicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+
+import { useSession } from "@/context/AuthContext";
 
 const AccountPage = () => {
+  const { signOut } = useSession();
   return (
     <View className="flex-1 bg-white">
       <View className="justify-center items-center flex-[0.4] bg-green-300">
@@ -44,7 +47,10 @@ const AccountPage = () => {
           <Text className="font-semibold font-poppins-sb">Password:</Text>
           <Text className="font-poppins">********</Text>
         </View>
-        <TouchableOpacity className="bg-green-300 p-4 rounded-lg">
+        <TouchableOpacity
+          className="bg-green-300 p-4 rounded-lg"
+          onPress={signOut}
+        >
           <Text className="text-center font-semibold font-poppins-sb">
             Logout Account
           </Text>
