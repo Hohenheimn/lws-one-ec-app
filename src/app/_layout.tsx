@@ -1,11 +1,10 @@
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { SessionProvider } from "@/context/AuthContext";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect } from "react";
+export { ErrorBoundary } from "expo-router";
 import { useFonts } from "expo-font";
-
-const queryClient = new QueryClient();
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -36,6 +35,7 @@ export default function RootLayout() {
 }
 
 const RootLayoutNav = () => {
+  const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
