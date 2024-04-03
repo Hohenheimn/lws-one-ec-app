@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, useRouter } from "expo-router";
 import { View, ImageBackground, Image, Text } from "react-native";
+
+import Button from "../components/Button";
 import Heading from "../components/Heading";
 import Paragraph from "../components/Paragraph";
-import Button from "../components/Button";
 
 const HomeScreen = () => {
   const router = useRouter();
