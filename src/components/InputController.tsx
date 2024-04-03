@@ -30,7 +30,7 @@ const InputController = ({
           <View className="my-2">
             {label && <Text className="text-black font-poppins">{label}</Text>}
             <TextInput
-              className="border-b border-gray-400 font-poppins"
+              className="border-b border-gray-400 font-poppins py-2"
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}

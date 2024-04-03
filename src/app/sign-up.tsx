@@ -1,18 +1,25 @@
 import React from "react";
+import axios from "axios";
 import { Link, router } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { View, Image, TextInput, Text } from "react-native";
+
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { useMutation, useQuery } from "@tanstack/react-query";
+
 import { useSession } from "@/context/AuthContext";
+
+import { env } from "@/envConfig";
 
 import Button from "../components/Button";
 import Heading from "../components/Heading";
 import InputController from "../components/InputController";
 import { KeyboardShift } from "../components/KeyboardShift";
 import Paragraph from "../components/Paragraph";
+import { useFetch } from "../hooks/api";
 
 const loginSchema = z
   .object({
@@ -55,6 +62,8 @@ const SignUpScreen = () => {
     console.log(data);
     router.push("/verification");
   };
+
+  const { data, isLoading } = useFetch("/api/v1/user", ["get-user"]);
 
   return (
     <KeyboardShift classname=" flex-1 justify-center items-center gap-5 ">
@@ -114,6 +123,7 @@ const SignUpScreen = () => {
           classname=" mb-5"
           placeholder="Enter your Contact here"
           label="Contact Number"
+          maxLength={11}
           errors={errors}
           name={"contact"}
           control={control}
