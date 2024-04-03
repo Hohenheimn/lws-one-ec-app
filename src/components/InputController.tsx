@@ -32,7 +32,7 @@ const InputController = ({
           return (
             <>
               <TextInput
-                className=" border-b border-gray-400"
+                className=" border-b border-gray-400 py-2"
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
