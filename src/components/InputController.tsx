@@ -23,33 +23,32 @@ const InputController = ({
   ...rest
 }: Props) => {
   return (
-    <View className={classname}>
-      {label && <Text className=" text-black mb-1">{label}</Text>}
-
-      <Controller
-        control={control}
-        render={({ field: { onChange, onBlur, value } }) => {
-          return (
-            <>
-              <TextInput
-                className=" border-b border-gray-400"
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                secureTextEntry={secured}
-                keyboardType={type}
-                {...rest}
-              />
-            </>
-          );
-        }}
-        name={name}
-        defaultValue=""
-      />
-      {errors[name]?.message && (
-        <Text className=" text-red-500 mt-1">{errors[name]?.message}</Text>
-      )}
-    </View>
+    <Controller
+      control={control}
+      render={({ field: { onChange, onBlur, value } }) => {
+        return (
+          <View className="my-2">
+            {label && <Text className="text-black font-poppins">{label}</Text>}
+            <TextInput
+              className="border-b border-gray-400 font-poppins"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              secureTextEntry={secured}
+              keyboardType={type}
+              {...rest}
+            />
+            {errors[name]?.message && (
+              <Text className="font-poppins text-red-500 mt-1">
+                {errors[name]?.message}
+              </Text>
+            )}
+          </View>
+        );
+      }}
+      name={name}
+      defaultValue=""
+    />
   );
 };
 

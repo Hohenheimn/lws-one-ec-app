@@ -74,7 +74,6 @@ const AccountDetailsScreen = () => {
           control={control}
           secureTextEntry
         />
-
         <TouchableOpacity
           className="bg-green-300 p-4 rounded-lg"
           onPress={handleSubmit(onSubmit)}
