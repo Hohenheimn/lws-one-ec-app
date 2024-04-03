@@ -24,7 +24,7 @@ const InputController = ({
 }: Props) => {
   return (
     <View className={classname}>
-      {label && <Text className=" text-black">{label}</Text>}
+      {label && <Text className=" text-black mb-1">{label}</Text>}
 
       <Controller
         control={control}
@@ -32,7 +32,7 @@ const InputController = ({
           return (
             <>
               <TextInput
-                className=" border-b border-gray-400 py-3"
+                className=" border-b border-gray-400"
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}

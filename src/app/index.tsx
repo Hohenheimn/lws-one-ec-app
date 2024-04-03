@@ -8,11 +8,13 @@ import Paragraph from "../components/Paragraph";
 
 const HomeScreen = () => {
   const router = useRouter();
+
+  console.log("Running...");
   return (
     <View className=" flex-1 justify-center items-center gap-5 ">
       <ImageBackground
         source={require("../../assets/images/welcome.png")}
-        className=" flex-1 w-full rounded-br-[200%] rounded-bl-[200%] overflow-hidden"
+        className=" flex-1 w-full rounded-b-3xl overflow-hidden"
         resizeMode="cover"
       />
 
