@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, router } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { View, Image, TextInput, Text } from "react-native";
@@ -11,37 +11,55 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSession } from "@/context/AuthContext";
 
 import Button from "../components/Button";
+import ErrorMessage from "../components/ErrorMessage";
 import Heading from "../components/Heading";
 import InputController from "../components/InputController";
 import { KeyboardShift } from "../components/KeyboardShift";
 import Paragraph from "../components/Paragraph";
+import { getData, setData } from "../helpers";
+import { usePostNoToken } from "../hooks/api";
 
 const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
+  userEmail: z.string().min(1, "Username is required").email("Invalid Email"),
+  userPassword: z.string().min(1, "Password is required"),
 });
 
 type formData = z.infer<typeof loginSchema>;
 
 const SignInScreen = () => {
   const { signIn } = useSession();
+  const [error, setError] = useState("");
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<formData>({
     defaultValues: {
-      username: "",
-      password: "",
+      userEmail: "",
+      userPassword: "",
     },
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmitHandler = async (data: formData) => {
-    const token = "galing sa response";
-    await AsyncStorage.setItem("token", token);
-    signIn();
+  const onSuccess = async (res: any) => {
+    setError("");
+    const token = res.data.data.token;
+    // setData("userToken", token);
+    await AsyncStorage.setItem("userToken", "I like to save it.");
     router.push("/home");
+  };
+
+  const onError = (res: any) => {
+    setError(res.response.data.message);
+  };
+  const { mutate: login, isPending: loggingIn } = usePostNoToken(
+    "/api/v1/user",
+    onSuccess,
+    onError
+  );
+
+  const onSubmitHandler = async (data: formData) => {
+    login(data);
   };
   return (
     <KeyboardShift classname=" flex-1 justify-center items-center gap-5 ">
@@ -71,7 +89,7 @@ const SignInScreen = () => {
           placeholder="Enter your Username here"
           label="Username"
           errors={errors}
-          name={"username"}
+          name={"userEmail"}
           control={control}
         />
 
@@ -82,15 +100,17 @@ const SignInScreen = () => {
           placeholder="Enter your Password here"
           label="Password"
           errors={errors}
-          name={"password"}
+          name={"userPassword"}
           control={control}
         />
+        {error && <ErrorMessage message={error} />}
 
         <Button
           title="Sign In"
           appearance="primary"
           buttonClassname="mb-2"
           onPress={handleSubmit(onSubmitHandler)}
+          loading={loggingIn}
         />
 
         <Paragraph classname=" text-center">
@@ -99,6 +119,9 @@ const SignInScreen = () => {
             Sign Up Here
           </Link>
         </Paragraph>
+        <Link href={"/home"} className=" font-bold text-primary">
+          go to home
+        </Link>
       </View>
     </KeyboardShift>
   );

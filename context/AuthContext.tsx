@@ -2,6 +2,8 @@ import React from "react";
 
 import { router } from "expo-router";
 
+import { removeData } from "@/src/helpers";
+
 import { useStorageState } from "./useStorageState";
 
 const AuthContext = React.createContext<{
@@ -33,11 +35,12 @@ export function SessionProvider(props: React.PropsWithChildren) {
   return (
     <AuthContext.Provider
       value={{
-        signIn: () => {
+        signIn: async () => {
           // Perform sign-in logic here
           setSession("xxx");
         },
         signOut: () => {
+          removeData("userToken");
           router.push("/");
           setSession(null);
         },

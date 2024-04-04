@@ -1,15 +1,15 @@
 import axios, { ResponseType } from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { env } from "@/envConfig";
 
+const token = "";
 export const useFetch = (apiUrl: string, queryKey: string[]) => {
   return useQuery({
     queryFn: async () => {
       return axios.get(`${env.API_HOST}${apiUrl}`, {
         headers: {
-          Authorization: `Bearer ${await AsyncStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
       });
     },
@@ -19,14 +19,32 @@ export const useFetch = (apiUrl: string, queryKey: string[]) => {
 
 export const usePost = (
   apiUrl: string,
-  onSuccess: (res: ResponseType) => void,
-  onError: (res: ResponseType) => void
+  onSuccess: (res?: any) => void,
+  onError: (res?: any) => void
 ) => {
   return useMutation({
-    mutationFn: (payload) => {
-      return axios.post(`${env.API_HOST}${apiUrl}`, payload);
+    mutationFn: async (payload) => {
+      return axios.post(`${env.API_HOST}${apiUrl}`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     },
     onSuccess: onSuccess,
     onError: onError,
+  });
+};
+
+export const usePostNoToken = (
+  apiUrl: string,
+  onSuccess: (res?: any) => void,
+  onError: (res?: any) => void
+) => {
+  return useMutation({
+    mutationFn: (payload: any) => {
+      return axios.post(`${env.API_HOST}${apiUrl}`, payload);
+    },
+    onSuccess,
+    onError,
   });
 };
