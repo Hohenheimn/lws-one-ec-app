@@ -1,22 +1,13 @@
 import React from "react";
 import { Redirect, Stack } from "expo-router";
 import { Tabs } from "expo-router";
-import { Text } from "react-native";
+
 import { Octicons } from "@expo/vector-icons";
 
-import { useSession } from "@/context/AuthContext";
-import { getData } from "@/src/helpers";
+import { retrieveData } from "@/src/helpers";
 
 const AuthLayout = () => {
-  const { session, isLoading } = useSession();
-
-  const userToken = getData("userToken");
-
-  console.log(userToken);
-
-  if (isLoading) {
-    return <Text>Loading...</Text>;
-  }
+  const userToken = retrieveData("userToken");
   if (!userToken) {
     return <Redirect href="/" />;
   }

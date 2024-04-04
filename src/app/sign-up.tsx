@@ -1,27 +1,11 @@
 import React, { useState } from "react";
-import axios, { ResponseType } from "axios";
 import { Link, router } from "expo-router";
-import { Controller, useForm } from "react-hook-form";
-import {
-  View,
-  Image,
-  TextInput,
-  Text,
-  ScrollView,
-  SafeAreaView,
-} from "react-native";
+import { useForm } from "react-hook-form";
+import { ScrollView, SafeAreaView } from "react-native";
 
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { useMutation, useQuery } from "@tanstack/react-query";
-
-import { useSession } from "@/context/AuthContext";
-
-import { env } from "@/envConfig";
 
 import Button from "../components/Button";
 import DatePickerController from "../components/DatePickerController";
@@ -30,6 +14,7 @@ import Heading from "../components/Heading";
 import InputController from "../components/InputController";
 import { KeyboardShift } from "../components/KeyboardShift";
 import Paragraph from "../components/Paragraph";
+import { storedData } from "../helpers";
 import { usePostNoToken } from "../hooks/api";
 
 const loginSchema = z
@@ -50,7 +35,6 @@ const loginSchema = z
 type formData = z.infer<typeof loginSchema>;
 
 const SignUpScreen = () => {
-  const { signIn } = useSession();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const {
@@ -70,15 +54,12 @@ const SignUpScreen = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const setSessionID = async (sessionId: string) => {
-    await AsyncStorage.setItem("sessionId", sessionId);
-  };
-
   const onSuccess = async (res: any) => {
-    const sessionId = res.data?.sessionId;
-    setSessionID(sessionId);
+    const sessionId = res?.response?.data?.sessionId;
+    storedData("otpSessionId", sessionId);
     router.push(`/${email}`);
   };
+
   const onError = (res: any) => {
     setError(res.response.data.message);
   };

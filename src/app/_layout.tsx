@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 export { ErrorBoundary } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { SessionProvider } from "@/context/AuthContext";
+
+import { retrieveData } from "../helpers";
 
 SplashScreen.preventAutoHideAsync();
 

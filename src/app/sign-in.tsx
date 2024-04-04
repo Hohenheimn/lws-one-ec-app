@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { Link, router } from "expo-router";
-import { Controller, useForm } from "react-hook-form";
-import { View, Image, TextInput, Text } from "react-native";
+import { useForm } from "react-hook-form";
+import { View, Image } from "react-native";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { useSession } from "@/context/AuthContext";
 
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
@@ -16,7 +12,7 @@ import Heading from "../components/Heading";
 import InputController from "../components/InputController";
 import { KeyboardShift } from "../components/KeyboardShift";
 import Paragraph from "../components/Paragraph";
-import { getData, setData } from "../helpers";
+import { storedData } from "../helpers";
 import { usePostNoToken } from "../hooks/api";
 
 const loginSchema = z.object({
@@ -27,7 +23,6 @@ const loginSchema = z.object({
 type formData = z.infer<typeof loginSchema>;
 
 const SignInScreen = () => {
-  const { signIn } = useSession();
   const [error, setError] = useState("");
   const {
     control,
@@ -44,8 +39,7 @@ const SignInScreen = () => {
   const onSuccess = async (res: any) => {
     setError("");
     const token = res.data.data.token;
-    // setData("userToken", token);
-    await AsyncStorage.setItem("userToken", "I like to save it.");
+    storedData("userToken", token);
     router.push("/home");
   };
 

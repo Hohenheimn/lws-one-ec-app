@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { View, Image, ActivityIndicator, Pressable, Text } from "react-native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
 
@@ -12,6 +10,7 @@ import { KeyboardShift } from "../components/KeyboardShift";
 import MessageModal from "../components/MessageModal";
 import OTPInputField from "../components/OTPInputField";
 import Paragraph from "../components/Paragraph";
+import { removeData, retrieveData } from "../helpers";
 import { usePostNoToken } from "../hooks/api";
 
 const VerificationScreen = () => {
@@ -25,15 +24,13 @@ const VerificationScreen = () => {
   const onSuccessVerify = () => {
     setModal(true);
   };
+
   const onErrorVerify = (res: any) => {
     const { message, data, status } = res.response.data;
     setError(message);
   };
 
-  const sessionId = async () => {
-    const id = await AsyncStorage.getItem("sessionId");
-    return id;
-  };
+  const sessionId = retrieveData("otpSessionId");
 
   const { mutate: verify, isPending: isVerifying } = usePostNoToken(
     `/api/v1/user/verify/${sessionId}`,
@@ -101,7 +98,8 @@ const VerificationScreen = () => {
         </View>
       </KeyboardShift>
       <MessageModal
-        onPress={() => {
+        onPress={async () => {
+          await removeData("otpSessionId");
           router.push("/sign-in");
         }}
         buttonName="Confirm"

@@ -1,26 +1,28 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 
-export const getData = async (name: string) => {
+export const storedData = async (name: string, value: string) => {
   try {
-    const value = await AsyncStorage.getItem(name);
-    return value;
+    await SecureStore.setItemAsync(name, value);
+    console.log("Data stored successfully");
   } catch (error) {
-    console.log("error in getData", error);
+    console.error("Failed to stored data:", error);
   }
 };
 
-export const setData = async (name: string, token: string) => {
+export const retrieveData = (name: string) => {
   try {
-    await AsyncStorage.setItem(name, token);
+    const value = SecureStore.getItem(name);
+    return value;
   } catch (error) {
-    console.log("error in setToken", error);
+    console.error("Failed to retrieve data:", error);
   }
 };
 
 export const removeData = async (name: string) => {
   try {
-    await AsyncStorage.removeItem(name);
+    await SecureStore.deleteItemAsync(name);
+    console.log("Data deleted successfully");
   } catch (error) {
-    console.log("error in removeData", error);
+    console.error("Failed to remove data:", error);
   }
 };

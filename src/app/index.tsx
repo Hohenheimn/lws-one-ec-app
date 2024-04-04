@@ -1,17 +1,21 @@
 import React from "react";
-import { Link, useRouter } from "expo-router";
-import { View, ImageBackground, Image, Text } from "react-native";
+import { Link, Redirect, useRouter } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View, ImageBackground, Image, Text } from "react-native";
 
 import Button from "../components/Button";
 import Heading from "../components/Heading";
 import Paragraph from "../components/Paragraph";
+import { retrieveData } from "../helpers";
 
-const HomeScreen = () => {
+const LandingScreen = () => {
   const router = useRouter();
-  console.log("Running...");
 
+  const userToken = retrieveData("userToken");
+  if (userToken) {
+    return <Redirect href="/home" />;
+  }
   return (
     <View className=" flex-1 justify-center items-center gap-5 ">
       <ImageBackground
@@ -36,20 +40,6 @@ const HomeScreen = () => {
             router.push("/sign-in");
           }}
         />
-
-        <Button
-          title="Stored Data"
-          appearance="primary"
-          buttonClassname="mb-2"
-          onPress={() => {}}
-        />
-
-        <Button
-          title="Retrieve Data"
-          appearance="primary"
-          buttonClassname="mb-2"
-          onPress={() => {}}
-        />
         <Paragraph classname=" text-center">
           Don't have an Account ?{" "}
           <Link href={"/sign-up"} className=" font-bold text-primary">
@@ -61,4 +51,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default LandingScreen;
