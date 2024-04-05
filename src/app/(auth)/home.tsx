@@ -3,6 +3,7 @@ import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
 import Header from "@/src/components/Header";
 import { useGetUserData } from "@/src/hooks/useGetUserData";
+import { LinearGradient } from "expo-linear-gradient";
 
 const HomePage = () => {
   const { data, isFetching, refetch } = useGetUserData();
@@ -65,10 +66,10 @@ const HomePage = () => {
           //removes lines in number
           xAxisThickness={0}
           yAxisThickness={0}
-          showGradient
+          // showGradient
           //removes ant lines
           hideRules
-          gradientColor={"#bbf7d0"}
+          // gradientColor={"#bbf7d0"}
           barBorderRadius={4}
           barWidth={40}
         />
