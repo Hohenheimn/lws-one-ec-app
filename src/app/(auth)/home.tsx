@@ -1,8 +1,9 @@
-import { View, Text, ScrollView, RefreshControl, Platform } from "react-native";
 import React, { useState } from "react";
+import { View, Text, ScrollView, RefreshControl, Platform } from "react-native";
+import { BarChart, barDataItem } from "react-native-gifted-charts";
+
 import Header from "@/src/components/Header";
 import { useGetUserData } from "@/src/hooks/useGetUserData";
-import { BarChart, barDataItem } from "react-native-gifted-charts";
 
 const HomePage = () => {
   const [refreshing, setRefreshing] = useState(false);

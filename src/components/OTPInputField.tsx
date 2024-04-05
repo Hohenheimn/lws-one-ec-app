@@ -11,7 +11,7 @@ const OTPInputField = ({ code, setCode }: Props) => {
   return (
     <OTPInputView
       style={{ width: "90%", height: 100 }}
-      pinCount={6}
+      pinCount={7}
       code={code}
       onCodeChanged={(code) => {
         setCode(code);

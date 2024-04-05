@@ -1,26 +1,32 @@
 import React from "react";
-import { Link, useRouter } from "expo-router";
+import { Link, Redirect, useRouter } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+
 import { View, ImageBackground, Image, Text } from "react-native";
 
 import Button from "../components/Button";
 import Heading from "../components/Heading";
 import Paragraph from "../components/Paragraph";
+import { retrieveData } from "../helpers";
 
-const HomeScreen = () => {
+const LandingScreen = () => {
   const router = useRouter();
 
-  console.log("Running...");
+  const userToken = retrieveData("userToken");
+  if (userToken) {
+    return <Redirect href="/home" />;
+  }
   return (
     <View className=" flex-1 justify-center items-center gap-5 ">
       <ImageBackground
         source={require("../../assets/images/welcome.png")}
-        className=" flex-1 w-full rounded-b-3xl overflow-hidden"
+        className=" flex-1 w-full rounded-b-full overflow-hidden"
         resizeMode="cover"
       />
 
       <View className=" pb-20 pt-5 space-y-5 px-5">
-        <Heading size={"large"} classname=" mb-2 text-center">
-          Welcome, This is the front page
+        <Heading size={"large"} classname=" mb-2 text-center font-poppins-b">
+          Welcome, To OneEC!
         </Heading>
         <Paragraph classname=" text-gray-400 mb-5 text-center">
           Pay bills, manage your account, and stay in control - all in one
@@ -45,4 +51,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default LandingScreen;

@@ -1,10 +1,13 @@
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { SessionProvider } from "@/context/AuthContext";
 import { useEffect } from "react";
-export { ErrorBoundary } from "expo-router";
 import { useFonts } from "expo-font";
+import { Redirect, Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+export { ErrorBoundary } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { SessionProvider } from "@/context/AuthContext";
+
+import { retrieveData } from "../helpers";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -36,6 +39,7 @@ export default function RootLayout() {
 
 const RootLayoutNav = () => {
   const queryClient = new QueryClient();
+
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
@@ -53,7 +57,10 @@ const RootLayoutNav = () => {
           />
           <Stack.Screen name="sign-in" options={{ headerShown: false }} />
           <Stack.Screen name="sign-up" options={{ headerShown: false }} />
-          <Stack.Screen name="verification" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="[emailVerification]"
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen
             name="account-details"
