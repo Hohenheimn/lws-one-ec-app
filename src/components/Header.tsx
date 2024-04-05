@@ -4,7 +4,11 @@ import { Octicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
 
-const Header = () => {
+type Props = {
+  name?: string;
+};
+
+const Header = ({ name }: Props) => {
   return (
     <SafeAreaView className="bg-green-300 p-4 space-y-2 rounded-b-3xl">
       <View className="justify-between items-center flex-row">
@@ -17,7 +21,7 @@ const Header = () => {
         </TouchableOpacity>
       </View>
       <Text className="text-xl font-semibold font-poppins-sb text-zinc-800">
-        Welcome, Kenneth 👋
+        Welcome, {name} 👋
       </Text>
       <View className="space-y-2">
         <Text className="text-xs text-zinc-800 font-poppins">
