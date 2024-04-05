@@ -1,20 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, RefreshControl, Platform } from "react-native";
+import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
-
 import Header from "@/src/components/Header";
 import { useGetUserData } from "@/src/hooks/useGetUserData";
 
 const HomePage = () => {
-  const [refreshing, setRefreshing] = useState(false);
-  const { data } = useGetUserData();
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000); // Simulating a delay for demonstration purposes
-  };
+  const { data, isFetching, refetch } = useGetUserData();
 
   const mockdata: barDataItem[] = [
     {
@@ -58,10 +49,10 @@ const HomePage = () => {
         backgroundColor: "white",
       }}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl refreshing={isFetching} onRefresh={refetch} />
       }
     >
-      <Header />
+      <Header name={data?.data?.userData?.userFname} />
       <View className="flex-1 overflow-hidden mx-4 my-2 p-3 border border-gray-300 rounded-lg">
         <Text className="text-2xl font-medium font-poppins-md mb-4">
           Power Usage

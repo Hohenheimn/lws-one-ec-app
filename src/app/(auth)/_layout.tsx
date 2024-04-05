@@ -16,8 +16,11 @@ const AuthLayout = () => {
       <Tabs.Screen
         name="home"
         options={{
+          tabBarLabel: "Home",
+          tabBarLabelStyle: {
+            fontFamily: "poppins",
+          },
           headerShown: false,
-          tabBarShowLabel: false,
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#86EFAC",
           tabBarIcon: ({ color, size }) => (
@@ -28,7 +31,10 @@ const AuthLayout = () => {
       <Tabs.Screen
         name="transaction"
         options={{
-          tabBarShowLabel: false,
+          tabBarLabel: "Transaction",
+          tabBarLabelStyle: {
+            fontFamily: "poppins",
+          },
           headerTitle: "History Of Transaction",
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#86EFAC",
@@ -43,7 +49,10 @@ const AuthLayout = () => {
       <Tabs.Screen
         name="account"
         options={{
-          tabBarShowLabel: false,
+          tabBarLabel: "Account",
+          tabBarLabelStyle: {
+            fontFamily: "poppins",
+          },
           headerShown: false,
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#86EFAC",
