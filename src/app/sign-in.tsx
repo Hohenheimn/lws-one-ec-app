@@ -113,9 +113,6 @@ const SignInScreen = () => {
             Sign Up Here
           </Link>
         </Paragraph>
-        <Link href={"/home"} className=" font-bold text-primary">
-          go to home
-        </Link>
       </View>
     </KeyboardShift>
   );

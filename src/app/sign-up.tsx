@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, router } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import { ScrollView, SafeAreaView } from "react-native";
 
@@ -13,8 +13,9 @@ import ErrorMessage from "../components/ErrorMessage";
 import Heading from "../components/Heading";
 import InputController from "../components/InputController";
 import { KeyboardShift } from "../components/KeyboardShift";
+import MessageModal from "../components/MessageModal";
 import Paragraph from "../components/Paragraph";
-import { storedData } from "../helpers";
+import { removeData, retrieveData, storedData } from "../helpers";
 import { usePostNoToken } from "../hooks/api";
 
 const loginSchema = z
@@ -35,8 +36,11 @@ const loginSchema = z
 type formData = z.infer<typeof loginSchema>;
 
 const SignUpScreen = () => {
+  const [modal, setModal] = useState(true);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const sessionId = retrieveData("otpSessionId");
+  console.log(sessionId);
   const {
     control,
     handleSubmit,
@@ -55,8 +59,8 @@ const SignUpScreen = () => {
   });
 
   const onSuccess = async (res: any) => {
-    const sessionId = res?.response?.data?.sessionId;
-    storedData("otpSessionId", sessionId);
+    const sessionId = res?.data?.data?.sessionId;
+    await storedData("otpSessionId", sessionId);
     router.push(`/${email}`);
   };
 
@@ -70,7 +74,8 @@ const SignUpScreen = () => {
     onError
   );
 
-  const onSubmitHandler = (data: formData) => {
+  const onSubmitHandler = async (data: formData) => {
+    setError("");
     setEmail(data.userEmail);
     mutateSignUp(data);
   };

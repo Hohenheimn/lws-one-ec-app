@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { View, Image, ActivityIndicator, Pressable, Text } from "react-native";
 
 import Button from "../components/Button";
@@ -14,6 +14,7 @@ import { removeData, retrieveData } from "../helpers";
 import { usePostNoToken } from "../hooks/api";
 
 const VerificationScreen = () => {
+  const router = useRouter();
   const [error, setError] = useState("");
   const [modal, setModal] = useState(false);
 
@@ -99,12 +100,17 @@ const VerificationScreen = () => {
       </KeyboardShift>
       <MessageModal
         onPress={async () => {
+          setModal(false);
+          await removeData("otpSessionId");
+          router.push("/sign-in");
+        }}
+        onRequestClose={async () => {
+          setModal(false);
           await removeData("otpSessionId");
           router.push("/sign-in");
         }}
         buttonName="Confirm"
         visible={modal}
-        setVisible={setModal}
         title={"Account Created Successfully"}
         description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
           enim, velit molestiae deleniti odit ea!"

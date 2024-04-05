@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "expo-router";
+
 import { Modal, Image, View } from "react-native";
 
 import Button from "./Button";
@@ -7,25 +9,25 @@ import Paragraph from "./Paragraph";
 
 type Props = {
   visible: boolean;
-  setVisible: Function;
   title: string;
   description: string;
   buttonName: string;
   onPress: () => void;
+  onRequestClose?: () => void;
 };
 
 const MessageModal = ({
   visible,
-  setVisible,
   title,
   description,
   buttonName,
   onPress,
+  onRequestClose,
 }: Props) => {
   return (
     <Modal
       visible={visible}
-      onRequestClose={() => setVisible(false)}
+      onRequestClose={onRequestClose}
       animationType="slide"
       presentationStyle="pageSheet"
     >
@@ -35,6 +37,7 @@ const MessageModal = ({
           className=" w-96 h-96"
           resizeMode="contain"
         />
+        <Link href="/sign-in">go to sign in</Link>
         <Heading size={"large"} classname="text-center mb-5">
           {title}
         </Heading>
