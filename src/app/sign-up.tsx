@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, router, useRouter } from "expo-router";
+import { Link, Redirect, router, useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import { ScrollView, SafeAreaView } from "react-native";
 
@@ -36,11 +36,10 @@ const loginSchema = z
 type formData = z.infer<typeof loginSchema>;
 
 const SignUpScreen = () => {
-  const [modal, setModal] = useState(true);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const sessionId = retrieveData("otpSessionId");
-  console.log(sessionId);
+  const sessionEmail = retrieveData("otpSessionEmail");
   const {
     control,
     handleSubmit,
@@ -61,6 +60,7 @@ const SignUpScreen = () => {
   const onSuccess = async (res: any) => {
     const sessionId = res?.data?.data?.sessionId;
     await storedData("otpSessionId", sessionId);
+    await storedData("otpSessionEmail", email);
     router.push(`/${email}`);
   };
 
@@ -79,6 +79,9 @@ const SignUpScreen = () => {
     setEmail(data.userEmail);
     mutateSignUp(data);
   };
+  if (sessionEmail && sessionId) {
+    return <Redirect href={`/${sessionEmail}`} />;
+  }
 
   return (
     <KeyboardShift classname=" flex-1 justify-center items-center gap-5 ">

@@ -45,13 +45,20 @@ const VerificationScreen = () => {
       console.log("success otp");
     },
     (res) => {
-      console.log(res.response);
+      console.log(res);
       console.log("error otp");
     }
   );
 
   const onSubmitHandler = async () => {
     verify({ otp: code });
+  };
+
+  const onClose = async () => {
+    setModal(false);
+    await removeData("otpSessionId");
+    await removeData("otpSessionEmail");
+    router.push("/sign-in");
   };
 
   return (
@@ -99,16 +106,8 @@ const VerificationScreen = () => {
         </View>
       </KeyboardShift>
       <MessageModal
-        onPress={async () => {
-          setModal(false);
-          await removeData("otpSessionId");
-          router.push("/sign-in");
-        }}
-        onRequestClose={async () => {
-          setModal(false);
-          await removeData("otpSessionId");
-          router.push("/sign-in");
-        }}
+        onPress={onClose}
+        onRequestClose={onClose}
         buttonName="Confirm"
         visible={modal}
         title={"Account Created Successfully"}
