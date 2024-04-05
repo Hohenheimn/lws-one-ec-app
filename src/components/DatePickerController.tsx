@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { View, Text, TextInputProps, Pressable, Platform } from "react-native";
-import DateTimePickerIOS from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import Button from "./Button";
 
@@ -22,6 +22,7 @@ const DatePickerController = ({
   ...rest
 }: Props) => {
   const [show, setShow] = useState(false);
+
   return (
     <Controller
       control={control}
@@ -48,28 +49,28 @@ const DatePickerController = ({
               </Text>
             )}
             {show && (
-              <DateTimePickerIOS
+              <DateTimePicker
                 testID="dateTimePicker"
                 value={value || new Date(2000, 0, 1)}
                 mode="date"
                 is24Hour={true}
                 display="spinner"
-                onChange={(_, selectedData) => {
+                onChange={({ type }, selectedData) => {
+                  if (type === "dismissed" && Platform.OS === "android") {
+                    setShow(false);
+                    return;
+                  }
+                  if (type === "set" && Platform.OS === "android") {
+                    setShow(false);
+                  }
                   onChange(selectedData);
                 }}
               />
             )}
             {show && Platform.OS === "ios" && (
-              <View className=" flex-row justify-around">
+              <View className=" flex-row justify-center">
                 <Button
-                  title="CANCEL"
-                  onPress={() => {
-                    setShow(false);
-                  }}
-                  appearance={"default"}
-                />
-                <Button
-                  title="SAVE"
+                  title="Close"
                   onPress={() => {
                     setShow(false);
                   }}
