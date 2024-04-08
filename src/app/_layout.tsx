@@ -1,13 +1,10 @@
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import { Redirect, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 export { ErrorBoundary } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import { SessionProvider } from "@/context/AuthContext";
-
-import { retrieveData } from "../helpers";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -49,6 +46,9 @@ const RootLayoutNav = () => {
             name="meter-account"
             options={{
               headerTitle: "Meter Account",
+              headerTitleStyle: {
+                fontFamily: "poppins-md",
+              },
               headerShadowVisible: false,
               headerStyle: {
                 backgroundColor: "white",
@@ -76,6 +76,9 @@ const RootLayoutNav = () => {
             name="account-details"
             options={{
               headerTitle: "Edit Account Details",
+              headerTitleStyle: {
+                fontFamily: "poppins-md",
+              },
               headerShadowVisible: false,
               headerStyle: {
                 backgroundColor: "#86EFAC",
