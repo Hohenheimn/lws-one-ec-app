@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import { View, Text, TextInput, TextInputProps } from "react-native";
+import { twMerge } from "tailwind-merge";
 
 type Props = {
   classname?: string;
@@ -22,21 +23,36 @@ const InputController = ({
   secured,
   ...rest
 }: Props) => {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
     <Controller
       control={control}
       render={({ field: { onChange, onBlur, value } }) => {
         return (
           <View className="my-2">
-            {label && <Text className="text-black font-poppins">{label}</Text>}
+            {label && (
+              <Text
+                className={twMerge("font-poppins", isFocused && "text-primary")}
+              >
+                {label}
+              </Text>
+            )}
             <TextInput
-              className="border-b border-gray-400 font-poppins py-2"
-              onBlur={onBlur}
+              className={twMerge(
+                "border-b border-gray-400 font-poppins py-2",
+                isFocused && "border-primary"
+              )}
+              onBlur={() => {
+                setIsFocused(false);
+                onBlur();
+              }}
               onChangeText={onChange}
               value={value}
               secureTextEntry={secured}
               keyboardType={type}
               {...rest}
+              onFocus={() => setIsFocused(true)}
             />
             {errors[name]?.message && (
               <Text className="font-poppins text-red-500 mt-1">
