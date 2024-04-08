@@ -42,7 +42,7 @@ const Button = ({
     >
       <Text
         className={twMerge(
-          "text-base font-medium",
+          "text-base font-medium font-poppins-md",
           appearance === "secondary" && "text-white",
           textClassname
         )}

@@ -5,8 +5,10 @@ import SelectController from "../components/SelectController";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import InputController from "../components/InputController";
+import { useRouter } from "expo-router";
 
 const MeterAccountScreen = () => {
+  const router = useRouter();
   const {
     handleSubmit,
     formState: { errors },
@@ -19,7 +21,7 @@ const MeterAccountScreen = () => {
   });
 
   const onSubmit = (data: any) => {
-    console.log(data, "DATA");
+    router.push(`/meter-details`);
   };
   return (
     <View className="bg-white flex-1 p-4">

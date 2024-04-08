@@ -55,6 +55,16 @@ const RootLayoutNav = () => {
               },
             }}
           />
+          <Stack.Screen
+            name="meter-details"
+            options={{
+              headerTitle: "",
+              headerShadowVisible: false,
+              headerStyle: {
+                backgroundColor: "white",
+              },
+            }}
+          />
           <Stack.Screen name="sign-in" options={{ headerShown: false }} />
           <Stack.Screen name="sign-up" options={{ headerShown: false }} />
           <Stack.Screen
