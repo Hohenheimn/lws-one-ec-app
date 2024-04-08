@@ -10,11 +10,11 @@ const HomePage = () => {
 
   const mockdata: barDataItem[] = [
     {
-      value: 300,
+      value: 321,
       label: "2022",
     },
     {
-      value: 500,
+      value: 433,
       label: "2023",
     },
     {
@@ -22,19 +22,19 @@ const HomePage = () => {
       label: "2022",
     },
     {
-      value: 500,
+      value: 123,
       label: "2023",
     },
     {
-      value: 300,
+      value: 222,
       label: "2022",
     },
     {
-      value: 500,
+      value: 600,
       label: "2023",
     },
     {
-      value: 300,
+      value: 321,
       label: "2022",
     },
     {

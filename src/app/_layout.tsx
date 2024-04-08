@@ -43,6 +43,10 @@ const RootLayoutNav = () => {
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen
+            name="payment"
+            options={{ headerTitle: "", headerShadowVisible: false }}
+          />
+          <Stack.Screen
             name="meter-account"
             options={{
               headerTitle: "Meter Account",

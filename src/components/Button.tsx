@@ -2,10 +2,6 @@ import React from "react";
 import {
   TouchableOpacity,
   Text,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
   TouchableOpacityProps,
   ActivityIndicator,
 } from "react-native";

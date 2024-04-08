@@ -2,13 +2,15 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Octicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
+import Button from "./Button";
 
 type Props = {
   name?: string;
 };
 
 const Header = ({ name }: Props) => {
+  const router = useRouter();
   return (
     <SafeAreaView className="bg-green-300 p-4 space-y-2 rounded-b-3xl">
       <View className="justify-between items-center flex-row">
@@ -41,13 +43,18 @@ const Header = ({ name }: Props) => {
           <Text className="font-medium font-poppins-sb">1234ABCD</Text>
         </Text>
       </View>
-      <Link href="/meter-account" asChild>
-        <TouchableOpacity className="bg-[#445069] p-4 rounded-full">
-          <Text className="text-white font-poppins-md text-center font-medium text-lg">
-            Go To Meter Account
-          </Text>
-        </TouchableOpacity>
-      </Link>
+      {/* <Button
+        title="Link to Meter Account"
+        appearance="secondary"
+        className="rounded-full"
+        onPress={() => router.push("/meter-account")}
+      /> */}
+      <Button
+        title="Pay Now"
+        appearance="secondary"
+        className="rounded-full"
+        onPress={() => router.push("/payment")}
+      />
     </SafeAreaView>
   );
 };
