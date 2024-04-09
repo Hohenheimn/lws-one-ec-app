@@ -62,59 +62,48 @@ const VerificationScreen = () => {
   };
 
   return (
-    <>
-      <KeyboardShift classname=" flex-1 justify-center items-center gap-5 px-5 ">
-        <View className=" justify-center items-center">
-          <Image
-            source={require("../../assets/images/verification.png")}
-            className=" w-80 h-80"
-          />
+    <KeyboardShift classname="flex-1 justify-center items-center">
+      <View className="flex-[0.8] p-4 justify-center items-center">
+        <Image
+          source={require("../../assets/images/verification.png")}
+          className=" w-64 h-64"
+          style={{ objectFit: "contain" }}
+        />
+      </View>
+      <View className="flex-1 px-4 space-y-2">
+        <Heading size={"large"} classname=" mb-2 text-center">
+          Enter Verification code
+        </Heading>
+        <Paragraph classname=" text-gray-400 text-center">
+          We are automatically detecting a Email send to you email{" "}
+          {`(${emailVerification})`}
+        </Paragraph>
+
+        <View className="mb-2 w-full items-center">
+          <OTPInputField setCode={setCode} />
         </View>
-        <View className=" pb-10 pt-5 px-5 w-full">
-          <Heading size={"large"} classname=" mb-2 text-center">
-            Enter Verification code
-          </Heading>
-          <Paragraph classname=" text-gray-400 text-center">
-            We are automatically detecting a Email send to you email{" "}
-            {`(${emailVerification})`}
-          </Paragraph>
 
-          <View className=" w-full items-center">
-            <OTPInputField code={code} setCode={setCode} />
-          </View>
+        <ErrorMessage message={error} />
 
-          <ErrorMessage message={error} />
+        <Button
+          title="Submit"
+          appearance="primary"
+          buttonClassname="my-2"
+          onPress={onSubmitHandler}
+          loading={isVerifying}
+        />
 
+        <View className="flex-row items-center justify-center">
+          <Paragraph>Did not receive the OTP ? </Paragraph>
           <Button
-            title="Submit"
-            appearance="primary"
-            buttonClassname="mb-2 w-full"
-            onPress={onSubmitHandler}
-            loading={isVerifying}
+            // onPress={resendOTP}
+            loading={sendingOTP}
+            appearance="link"
+            title="Resend"
           />
-
-          <Paragraph classname=" text-center">
-            Did not receive the OTP ?{" "}
-            <Pressable onPress={resendOTP}>
-              {sendingOTP ? (
-                <ActivityIndicator color={"#272829"} />
-              ) : (
-                <Text className=" text-primary font-bold">{"Resend OTP"}</Text>
-              )}
-            </Pressable>
-          </Paragraph>
         </View>
-      </KeyboardShift>
-      <MessageModal
-        onPress={onClose}
-        onRequestClose={onClose}
-        buttonName="Confirm"
-        visible={modal}
-        title={"Account Created Successfully"}
-        description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
-          enim, velit molestiae deleniti odit ea!"
-      />
-    </>
+      </View>
+    </KeyboardShift>
   );
 };
 
