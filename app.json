@@ -4,6 +4,7 @@
     "slug": "ec-one-app",
     "version": "1.0.0",
     "orientation": "portrait",
+    "owner": "lws",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
