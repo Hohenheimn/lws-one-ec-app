@@ -8,7 +8,11 @@ type Props = {
 };
 
 const Paragraph = ({ children, classname }: Props) => {
-  return <Text className={twMerge(" text-base ", classname)}>{children}</Text>;
+  return (
+    <Text className={twMerge("text-sm font-poppins", classname)}>
+      {children}
+    </Text>
+  );
 };
 
 export default Paragraph;

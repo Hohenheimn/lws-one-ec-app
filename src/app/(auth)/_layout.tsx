@@ -1,9 +1,8 @@
 import React from "react";
 import { Redirect, Stack } from "expo-router";
 import { Tabs } from "expo-router";
-
-import { Octicons } from "@expo/vector-icons";
-
+import { FontAwesome } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { retrieveData } from "@/src/helpers";
 
 const AuthLayout = () => {
@@ -22,9 +21,9 @@ const AuthLayout = () => {
           },
           headerShown: false,
           tabBarInactiveTintColor: "#707070",
-          tabBarActiveTintColor: "#86EFAC",
+          tabBarActiveTintColor: "#4ade80",
           tabBarIcon: ({ color, size }) => (
-            <Octicons name="home" size={size} color={color} />
+            <Entypo name="home" size={size} color={color} />
           ),
         }}
       />
@@ -37,12 +36,12 @@ const AuthLayout = () => {
           },
           headerTitle: "History Of Transaction",
           tabBarInactiveTintColor: "#707070",
-          tabBarActiveTintColor: "#86EFAC",
+          tabBarActiveTintColor: "#4ade80",
           headerStyle: {
             backgroundColor: "#86EFAC",
           },
           tabBarIcon: ({ color, size }) => (
-            <Octicons name="note" size={size} color={color} />
+            <Entypo name="newsletter" size={size} color={color} />
           ),
         }}
       />
@@ -55,12 +54,12 @@ const AuthLayout = () => {
           },
           headerShown: false,
           tabBarInactiveTintColor: "#707070",
-          tabBarActiveTintColor: "#86EFAC",
+          tabBarActiveTintColor: "#4ade80",
           headerStyle: {
             backgroundColor: "#86EFAC",
           },
           tabBarIcon: ({ color, size }) => (
-            <Octicons name="person" size={size} color={color} />
+            <FontAwesome name="user-circle" size={size} color={color} />
           ),
         }}
       />

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, router } from "expo-router";
 import { useForm } from "react-hook-form";
-import { View, Image } from "react-native";
+import { View, Image, Text } from "react-native";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -69,10 +69,11 @@ const SignInScreen = () => {
         />
       </View>
       <View className=" pb-10 pt-5 px-5">
-        <Heading size={"large"} classname=" mb-2">
+        <Heading size={"large"} classname="mb-2">
           Sign In to your Account
         </Heading>
-        <Paragraph classname=" text-gray-400 mb-5">
+
+        <Paragraph classname="text-gray-600 mb-5">
           To use this service, you need to acknowledge that you've read and
           agree to our Terms and Conditions.
         </Paragraph>

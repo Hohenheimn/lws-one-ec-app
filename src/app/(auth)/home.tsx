@@ -3,17 +3,18 @@ import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
 import Header from "@/src/components/Header";
 import { useGetUserData } from "@/src/hooks/useGetUserData";
+import { LinearGradient } from "expo-linear-gradient";
 
 const HomePage = () => {
   const { data, isFetching, refetch } = useGetUserData();
 
   const mockdata: barDataItem[] = [
     {
-      value: 300,
+      value: 321,
       label: "2022",
     },
     {
-      value: 500,
+      value: 433,
       label: "2023",
     },
     {
@@ -21,19 +22,19 @@ const HomePage = () => {
       label: "2022",
     },
     {
-      value: 500,
+      value: 123,
       label: "2023",
     },
     {
-      value: 300,
+      value: 222,
       label: "2022",
     },
     {
-      value: 500,
+      value: 600,
       label: "2023",
     },
     {
-      value: 300,
+      value: 321,
       label: "2022",
     },
     {
@@ -65,10 +66,10 @@ const HomePage = () => {
           //removes lines in number
           xAxisThickness={0}
           yAxisThickness={0}
-          showGradient
+          // showGradient
           //removes ant lines
           hideRules
-          gradientColor={"#bbf7d0"}
+          // gradientColor={"#bbf7d0"}
           barBorderRadius={4}
           barWidth={40}
         />
