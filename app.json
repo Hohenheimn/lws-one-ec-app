@@ -4,7 +4,6 @@
     "slug": "ec-one-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "owner": "lws",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -44,8 +43,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "6bbce929-cc4a-4def-a103-bfb0c6336e2c"
+        "projectId": "6f1019d3-2881-45b8-9ec2-14514f0548ea"
       }
-    }
+    },
+    "owner": "lightweightsolutions"
   }
 }
