@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ec-one-app",
+    "name": "EC One App",
     "slug": "ec-one-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,7 +14,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lightweightsolutions.econeapp"
     },
     "android": {
       "adaptiveIcon": {
