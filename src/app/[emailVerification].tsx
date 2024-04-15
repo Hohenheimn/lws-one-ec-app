@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { View, Image, ActivityIndicator, Pressable, Text } from "react-native";
 
+
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
-
 import Heading from "../components/Heading";
 import { KeyboardShift } from "../components/KeyboardShift";
 import MessageModal from "../components/MessageModal";
@@ -12,6 +12,7 @@ import OTPInputField from "../components/OTPInputField";
 import Paragraph from "../components/Paragraph";
 import { removeData, retrieveData } from "../helpers";
 import { usePostNoToken } from "../hooks/api";
+
 
 const VerificationScreen = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ const VerificationScreen = () => {
   };
 
   const onErrorVerify = (res: any) => {
-    const { message, data, status } = res.response.data;
+    const { message } = res.response.data;
     setError(message);
   };
 
@@ -63,6 +64,15 @@ const VerificationScreen = () => {
 
   return (
     <KeyboardShift classname="flex-1 justify-center items-center">
+      <MessageModal
+        visible={modal}
+        title="Verification Successful"
+        description="You can now login to your account"
+        buttonName="Go to Sign In"
+        onPress={onClose}
+        onRequestClose={onClose}
+      />
+
       <View className="flex-[0.8] p-4 justify-center items-center">
         <Image
           source={require("../../assets/images/verification.png")}
@@ -96,7 +106,7 @@ const VerificationScreen = () => {
         <View className="flex-row items-center justify-center">
           <Paragraph>Did not receive the OTP ? </Paragraph>
           <Button
-            // onPress={resendOTP}
+            onPress={resendOTP}
             loading={sendingOTP}
             appearance="link"
             title="Resend"

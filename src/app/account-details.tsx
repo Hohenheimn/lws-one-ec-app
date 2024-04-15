@@ -1,38 +1,89 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
-import { Octicons } from "@expo/vector-icons";
 import { useForm } from "react-hook-form";
-import InputController from "../components/InputController";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
+import { z } from "zod";
 
-export type FormValues = {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  password: string;
-  confirmPassword: string;
-};
+import { Octicons } from "@expo/vector-icons";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
+
+import Button from "../components/Button";
+import DatePickerController from "../components/DatePickerController";
+import ErrorMessage from "../components/ErrorMessage";
+import InputController from "../components/InputController";
+import MessageModal from "../components/MessageModal";
+import { usePost } from "../hooks/api";
+import { useGetUserData } from "../hooks/useGetUserData";
+import { userProfileSchema } from "../schema/userProfileSchema";
+
+
+type FormValues = z.infer<typeof userProfileSchema>;
 
 const AccountDetailsScreen = () => {
+  const [isError, setError] = React.useState("");
+  const [modal, setModal] = React.useState(false);
+  const { data, isFetching, refetch } = useGetUserData();
   const {
     handleSubmit,
     formState: { errors },
     control,
   } = useForm<FormValues>({
-    mode: "onBlur",
     defaultValues: {
-      name: "",
-      email: "",
-      phoneNumber: "",
-      password: "",
+      userFname: data?.data.userData.userFname || "",
+      userMname: data?.data.userData.userMname || "",
+      userLname: data?.data.userData.userLname || "",
+      userEmail: data?.data.userData.userEmail || "",
+      userContact: data?.data.userData.userContact || "",
+      userDob: new Date(data?.data.userData.userDob || ""),
     },
+    resolver: zodResolver(userProfileSchema),
   });
 
+  const onSuccess = async (res: any) => {
+    setModal(true);
+  };
+
+  const onError = (res: any) => {
+    setError(res.response.data.message);
+  };
+
+  const { mutate: updateProfile, isPending: updating } = usePost(
+    "/api/v1/user/update",
+    onSuccess,
+    onError
+  );
+
   const onSubmit = (data: FormValues) => {
-    console.log(data, "DATA");
+    setError("");
+    updateProfile(data);
+  };
+
+  const onClose = async () => {
+    setModal(false);
   };
 
   return (
-    <ScrollView className="flex-1 bg-white">
+    <ScrollView
+      className="flex-1 bg-white"
+      refreshControl={
+        <RefreshControl refreshing={isFetching} onRefresh={refetch} />
+      }
+    >
+      <MessageModal
+        visible={modal}
+        title="Verification Successful"
+        description="You can now login to your account"
+        buttonName="Go to Sign In"
+        onPress={onClose}
+        onRequestClose={onClose}
+      />
       <View className="justify-center items-center flex-[0.3] bg-green-300 py-3">
         <View className="justify-center items-center rounded-full w-28 h-28 bg-green-400">
           <Octicons name="feed-person" size={72} color="white" />
@@ -43,45 +94,65 @@ const AccountDetailsScreen = () => {
 
         <InputController
           type="default"
-          placeholder="Enter your full name..."
-          label="Full Name"
+          placeholder="Enter your first name..."
+          label="First Name"
           errors={errors}
-          name={"name"}
+          name={"userFname"}
           control={control}
         />
         <InputController
           type="default"
-          placeholder="Enter your email address..."
-          label="Email Address"
+          placeholder="Enter your middle name..."
+          label="Middle Name"
           errors={errors}
-          name={"email"}
+          name={"userMname"}
           control={control}
         />
+
         <InputController
           type="default"
-          placeholder="Enter your phone number..."
-          label="Phone Number"
+          placeholder="Enter your last name..."
+          label="Last Name"
           errors={errors}
-          name={"phoneNumber"}
+          name={"userLname"}
           control={control}
         />
+
         <InputController
-          type="default"
-          placeholder="Enter your password..."
-          label="Password"
+          type="number-pad"
+          placeholder="Enter your contact..."
+          label="Contact"
           errors={errors}
-          name={"password"}
+          name={"userContact"}
           control={control}
-          secureTextEntry
         />
-        <TouchableOpacity
-          className="bg-green-300 p-4 rounded-lg"
+
+        <InputController
+          type="email-address"
+          placeholder="Enter your email..."
+          label="Email"
+          errors={errors}
+          name={"userEmail"}
+          control={control}
+        />
+
+        <DatePickerController
+          name={"userDob"}
+          label="Date of Birth"
+          control={control}
+          errors={errors}
+          placeholder="Set your Date of Birth"
+        />
+
+        <ErrorMessage message={isError} />
+
+        <Button
+          title="Submit"
+          appearance="primary"
+          buttonClassname="mb-2"
           onPress={handleSubmit(onSubmit)}
-        >
-          <Text className="text-center font-semibold font-poppins-sb">
-            Submit
-          </Text>
-        </TouchableOpacity>
+          loading={updating}
+        />
       </View>
     </ScrollView>
   );

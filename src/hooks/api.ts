@@ -1,9 +1,13 @@
 import axios, { ResponseType } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
+
 import { env } from "@/envConfig";
 
-const token = "";
+import { retrieveData } from "../helpers";
+
+
+const token = retrieveData("userToken");
 export const useFetch = (apiUrl: string, queryKey: string[]) => {
   return useQuery({
     queryFn: async () => {
@@ -23,7 +27,7 @@ export const usePost = (
   onError: (res?: any) => void
 ) => {
   return useMutation({
-    mutationFn: async (payload) => {
+    mutationFn: async (payload: any) => {
       return axios.post(`${env.API_HOST}${apiUrl}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,

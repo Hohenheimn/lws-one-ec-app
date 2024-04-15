@@ -5,7 +5,7 @@ import { Text, ScrollView, RefreshControl, FlatList } from "react-native";
 import TransactionCard from "@/src/components/TransactionCard";
 
 
-const TransactionPage = () => {
+const BillHistoryScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
@@ -18,25 +18,25 @@ const TransactionPage = () => {
   const data = [
     {
       id: 1,
-      modeOfPayment: "Gcash",
+      title: "Unpaid Due",
       datetime: "Feb 23 2000 12:59PM",
       amount: 32133,
     },
     {
       id: 2,
-      modeOfPayment: "Gcash",
+      title: "Unpaid Due",
       datetime: "Feb 23 2000 12:59PM",
       amount: 3213,
     },
     {
       id: 3,
-      modeOfPayment: "Gcash",
+      title: "Unpaid Due",
       datetime: "Feb 23 2000 12:59PM",
       amount: 4000,
     },
     {
       id: 4,
-      modeOfPayment: "Gcash",
+      title: "Unpaid Due",
       datetime: "Feb 23 2000 12:59PM",
       amount: 4558,
     },
@@ -54,7 +54,7 @@ const TransactionPage = () => {
         renderItem={({ item }) => {
           return (
             <TransactionCard
-              title={`Sent via ${item.modeOfPayment}`}
+              title={item.title}
               datetime={item.datetime}
               amount={item.amount}
             />
@@ -65,4 +65,4 @@ const TransactionPage = () => {
   );
 };
 
-export default TransactionPage;
+export default BillHistoryScreen;

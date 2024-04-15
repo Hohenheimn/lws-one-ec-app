@@ -3,7 +3,10 @@ import { Redirect, Stack } from "expo-router";
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+
+
 import { retrieveData } from "@/src/helpers";
+
 
 const AuthLayout = () => {
   const userToken = retrieveData("userToken");
@@ -35,6 +38,25 @@ const AuthLayout = () => {
             fontFamily: "poppins",
           },
           headerTitle: "History Of Transaction",
+          tabBarInactiveTintColor: "#707070",
+          tabBarActiveTintColor: "#4ade80",
+          headerStyle: {
+            backgroundColor: "#86EFAC",
+          },
+          tabBarIcon: ({ color, size }) => (
+            <Entypo name="newsletter" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="bill-history"
+        options={{
+          tabBarLabel: "Bill History",
+          tabBarLabelStyle: {
+            fontFamily: "poppins",
+          },
+          headerTitle: "Bill History",
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#4ade80",
           headerStyle: {
