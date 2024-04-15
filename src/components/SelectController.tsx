@@ -16,6 +16,7 @@ type SelectInputProps<T> = {
   name: string;
   control: any;
   placeholder?: string;
+  errors?: any;
 };
 
 const SelectController = <T,>({
@@ -24,6 +25,7 @@ const SelectController = <T,>({
   data = [],
   control,
   placeholder,
+  errors,
 }: SelectInputProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [items, setItems] = useState<ItemType<any>[]>(data);
@@ -68,6 +70,11 @@ const SelectController = <T,>({
                 borderColor: "#ccc",
               }}
             />
+            {errors[name]?.message && (
+              <Text className="font-poppins text-red-500 mt-1">
+                {errors[name]?.message}
+              </Text>
+            )}
           </View>
         );
       }}

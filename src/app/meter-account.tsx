@@ -1,26 +1,31 @@
-import { View, Text, Image, ScrollView, ActivityIndicator } from "react-native";
-import React, { useMemo } from "react";
-import { KeyboardShift } from "../components/KeyboardShift";
+import { View, Text, Image, ActivityIndicator } from "react-native";
 import SelectController from "../components/SelectController";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import InputController from "../components/InputController";
 import { useRouter } from "expo-router";
 import { useGetCoop } from "../hooks/useGetCoop";
+import { z } from "zod";
+import { MeterAccountSchema } from "../schema/MeterAccountSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+type FormValues = z.infer<typeof MeterAccountSchema>;
 
 const MeterAccountScreen = () => {
   const router = useRouter();
   const { data, isLoading } = useGetCoop();
+
   const {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm({
+  } = useForm<FormValues>({
     mode: "onBlur",
     defaultValues: {
-      coop: "",
-      name: "",
+      coop: 0,
+      meterNumber: "",
     },
+    resolver: zodResolver(MeterAccountSchema),
   });
 
   if (isLoading) {
@@ -32,8 +37,10 @@ const MeterAccountScreen = () => {
   }
 
   const onSubmit = (data: any) => {
-    // router.push(`/meter-details`);
-    console.log(data, "data");
+    router.push({
+      pathname: "/meter-details",
+      params: data,
+    });
   };
 
   const coopData = data?.data.map((item) => {
@@ -58,10 +65,10 @@ const MeterAccountScreen = () => {
         </Text>
         <InputController
           type="default"
-          placeholder="Seach..."
+          placeholder="eg. 123456789"
           label="Search Meter Number"
           errors={errors}
-          name={"name"}
+          name="meterNumber"
           control={control}
         />
         <SelectController
@@ -69,6 +76,7 @@ const MeterAccountScreen = () => {
           control={control}
           placeholder="Select coop"
           data={coopData || []}
+          errors={errors}
         />
         <Button
           title="Search"
