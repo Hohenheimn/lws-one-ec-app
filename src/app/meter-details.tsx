@@ -81,7 +81,7 @@ const MeterDetails = () => {
             <Text className="text-2xl font-poppins-sb font-semibold text-center">
               Account Link Successfully!
             </Text>
-            <Text className="text-center text-lg">
+            <Text className="text-center text-lg font-poppins text-gray-600">
               Congratulations! With your account successfully linked, you now
               have access to view your bills and monitor your power usage with
               ease.
