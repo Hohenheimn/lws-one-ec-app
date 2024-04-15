@@ -8,6 +8,7 @@ import { useGetCoop } from "../hooks/useGetCoop";
 import { z } from "zod";
 import { MeterAccountSchema } from "../schema/MeterAccountSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ScreenLoader from "../components/ScreenLoader";
 
 type FormValues = z.infer<typeof MeterAccountSchema>;
 
@@ -29,11 +30,7 @@ const MeterAccountScreen = () => {
   });
 
   if (isLoading) {
-    return (
-      <View className="flex-1 justify-center items-center bg-white">
-        <ActivityIndicator color="black" />
-      </View>
-    );
+    return <ScreenLoader />;
   }
 
   const onSubmit = (data: any) => {
