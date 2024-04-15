@@ -5,9 +5,14 @@ import { ItemType } from "react-native-dropdown-picker";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Octicons } from "@expo/vector-icons";
 
+type DataProps = {
+  label: string;
+  value: number;
+};
+
 type SelectInputProps<T> = {
   label?: string;
-  data: T[];
+  data: ItemType<any>[] | undefined;
   name: string;
   control: any;
   placeholder?: string;
@@ -16,12 +21,12 @@ type SelectInputProps<T> = {
 const SelectController = <T,>({
   name,
   label,
-  data,
+  data = [],
   control,
   placeholder,
 }: SelectInputProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [items, setItems] = useState(data);
+  const [items, setItems] = useState<ItemType<any>[]>(data);
 
   const onOpen = () => setIsOpen(!isOpen);
   return (
@@ -38,7 +43,7 @@ const SelectController = <T,>({
               open={isOpen}
               setOpen={onOpen}
               placeholder={placeholder}
-              items={items as ItemType<any>[]}
+              items={items}
               setItems={setItems}
               onChangeValue={onChange}
               ArrowUpIconComponent={({ style }) => (
