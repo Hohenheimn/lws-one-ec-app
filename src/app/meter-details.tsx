@@ -21,7 +21,12 @@ const MeterDetails = () => {
   }
 
   if (!data) {
-    return <ScreenError message="No meter account found." />;
+    return (
+      <ScreenError
+        message="No meter account found."
+        description="Uh oh! We couldn't find your meter account number. Please check the number or contact support for help."
+      />
+    );
   }
 
   if (isError) {
