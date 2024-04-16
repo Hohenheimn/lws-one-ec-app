@@ -1,14 +1,16 @@
 import axios, { ResponseType } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-
 import { env } from "@/envConfig";
 
 import { retrieveData } from "../helpers";
 
-
 const token = retrieveData("userToken");
-export const useFetch = (apiUrl: string, queryKey: string[]) => {
+export const useFetch = (
+  apiUrl: string,
+  queryKey: string[],
+  enabled?: boolean
+) => {
   return useQuery({
     queryFn: async () => {
       return axios.get(`${env.API_HOST}${apiUrl}`, {
@@ -18,6 +20,7 @@ export const useFetch = (apiUrl: string, queryKey: string[]) => {
       });
     },
     queryKey: queryKey,
+    enabled: enabled,
   });
 };
 

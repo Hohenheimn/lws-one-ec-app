@@ -1,65 +1,76 @@
 import React, { useState } from "react";
 import { Text, ScrollView, RefreshControl, FlatList } from "react-native";
 
-
-import TransactionCard from "@/src/components/TransactionCard";
-
+import Heading from "@/src/components/Heading";
+import Paragraph from "@/src/components/Paragraph";
+import { useFetch } from "@/src/hooks/api";
+import TransactionCard, {
+  TransactionType,
+} from "@/src/pageComponent/transactionHistory/TransactionCard";
+import TransactionModal from "@/src/pageComponent/transactionHistory/TransactionModal";
 
 const TransactionPage = () => {
-  const [refreshing, setRefreshing] = useState(false);
+  const [transaction, setTransaction] = useState<any | null>(null);
 
-  const onRefresh = () => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000); // Simulating a delay for demonstration purposes
-  };
+  const { data: userData, isFetching: userDataFetching } = useFetch(
+    "/api/v1/accountregistry/user",
+    ["user-data"]
+  );
 
-  const data = [
-    {
-      id: 1,
-      modeOfPayment: "Gcash",
-      datetime: "Feb 23 2000 12:59PM",
-      amount: 32133,
-    },
-    {
-      id: 2,
-      modeOfPayment: "Gcash",
-      datetime: "Feb 23 2000 12:59PM",
-      amount: 3213,
-    },
-    {
-      id: 3,
-      modeOfPayment: "Gcash",
-      datetime: "Feb 23 2000 12:59PM",
-      amount: 4000,
-    },
-    {
-      id: 4,
-      modeOfPayment: "Gcash",
-      datetime: "Feb 23 2000 12:59PM",
-      amount: 4558,
-    },
-  ];
+  const meterID = userData?.data?.data[0]?.meterId;
+
+  const {
+    data: transactionList,
+    isFetching: transactionListFetching,
+    refetch: refetchTransactionList,
+  } = useFetch(
+    `/api/v1/payment/all/${meterID}`,
+    ["transaction-list", meterID],
+    !!meterID
+  );
 
   return (
     <ScrollView className="p-4 space-y-2 bg-white">
+      {!userData?.data?.data && (
+        <Paragraph classname=" text-center">No Account Found</Paragraph>
+      )}
+
       <FlatList
-        data={data}
+        data={transactionList?.data?.data}
         scrollEnabled={false}
-        refreshing={refreshing}
-        onRefresh={onRefresh}
+        refreshing={transactionListFetching}
+        onRefresh={refetchTransactionList}
         contentContainerStyle={{ gap: 20 }}
-        ListEmptyComponent={() => <Text>No Posts</Text>}
-        renderItem={({ item }) => {
+        ListEmptyComponent={() => (
+          <Paragraph classname=" text-center">No Transaction Found</Paragraph>
+        )}
+        renderItem={({
+          item,
+          index,
+        }: {
+          item: TransactionType;
+          index: number;
+        }) => {
           return (
             <TransactionCard
-              title={`Sent via ${item.modeOfPayment}`}
-              datetime={item.datetime}
-              amount={item.amount}
+              key={index}
+              transaction={item}
+              onPress={(transactionData: TransactionType) => {
+                setTransaction(transactionData);
+              }}
             />
           );
         }}
+        refreshControl={
+          <RefreshControl
+            refreshing={transactionListFetching}
+            onRefresh={refetchTransactionList}
+          />
+        }
+      />
+      <TransactionModal
+        transaction={transaction}
+        onClose={() => setTransaction(null)}
       />
     </ScrollView>
   );

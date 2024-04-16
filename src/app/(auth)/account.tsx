@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import {
   View,
   Text,
@@ -10,16 +10,14 @@ import {
 
 import { Octicons } from "@expo/vector-icons";
 
-
-import { useSession } from "@/context/AuthContext";
 import Button from "@/src/components/Button";
+import { removeData } from "@/src/helpers";
 import { useGetUserData } from "@/src/hooks/useGetUserData";
 import ChangePasswordModal from "@/src/pageComponent/account/ChangePasswordModal";
 
-
 const AccountPage = () => {
+  const router = useRouter();
   const [changePasswordModal, setChangePasswordModal] = useState(false);
-  const { signOut } = useSession();
   const { data, isFetching, refetch } = useGetUserData();
 
   return (
@@ -117,7 +115,10 @@ const AccountPage = () => {
         <Button
           title={"Logout Account"}
           appearance={"primary"}
-          onPress={signOut}
+          onPress={() => {
+            removeData("userToken");
+            router.push("/");
+          }}
         />
       </View>
     </ScrollView>

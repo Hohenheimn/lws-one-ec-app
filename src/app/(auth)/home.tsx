@@ -1,5 +1,6 @@
 import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
+
 import Header from "@/src/components/Header";
 import { useGetUserData } from "@/src/hooks/useGetUserData";
 
