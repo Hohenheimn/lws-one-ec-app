@@ -1,30 +1,10 @@
+import { Bill, BillData } from "@/src/types/Bill";
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 
-export type BillType = {
-  amountDue: number;
-  billDeleted: boolean;
-  billPaid: boolean;
-  dueDate: string;
-  fromDate: string;
-  id: number;
-  kwConsumes: string;
-  meterId: number;
-  penaltyPercentage: string;
-  rateUponReading: string;
-  readableFromDate: string;
-  readableReadingDate: string;
-  readableToDate: string;
-  readabledueDate: string;
-  readingDate: string;
-  refNumber: string;
-  toDate: string;
-  totalAmountToPay: string;
-};
-
 type Props = {
-  bill: BillType;
-  onPress: (billData: BillType) => void;
+  bill: BillData;
+  onPress: (billData: BillData) => void;
 };
 const BillCard = ({ bill, onPress }: Props) => {
   return (

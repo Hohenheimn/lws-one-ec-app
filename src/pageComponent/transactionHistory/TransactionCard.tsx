@@ -1,26 +1,11 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-
 import { dateString } from "@/src/utils/dateHelper";
-
-import { BillType } from "../billHistory/BillCard";
-
-export type TransactionType = {
-  bill: BillType;
-  billId: number;
-  collector: string;
-  collectorId: string;
-  createdAt: string;
-  id: number;
-  paymentAmount: string;
-  paymentMedium: string;
-  paymentPosted: true;
-  referenceNumber: string;
-};
+import { TransactionListData } from "@/src/types/TransactionList";
 
 type Props = {
-  transaction: TransactionType;
-  onPress: (transacntionData: TransactionType) => void;
+  transaction: TransactionListData;
+  onPress: (transacntionData: TransactionListData) => void;
 };
 
 const TransactionCard = ({ transaction, onPress }: Props) => {

@@ -1,8 +1,6 @@
 import React from "react";
-import { Redirect, Slot, Stack } from "expo-router";
 import { Tabs } from "expo-router";
-import { FontAwesome } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const TabLayout = () => {
   return (
@@ -18,7 +16,7 @@ const TabLayout = () => {
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#4ade80",
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="home" size={size} color={color} />
+            <MaterialCommunityIcons name="home" size={size} color={color} />
           ),
         }}
       />
@@ -30,13 +28,16 @@ const TabLayout = () => {
             fontFamily: "poppins",
           },
           headerTitle: "History Of Transaction",
+          headerTitleStyle: {
+            fontFamily: "poppins-sb",
+          },
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#4ade80",
           headerStyle: {
             backgroundColor: "#86EFAC",
           },
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="newsletter" size={size} color={color} />
+            <MaterialCommunityIcons name="ballot" size={size} color={color} />
           ),
         }}
       />
@@ -48,6 +49,9 @@ const TabLayout = () => {
           tabBarLabelStyle: {
             fontFamily: "poppins",
           },
+          headerTitleStyle: {
+            fontFamily: "poppins-sb",
+          },
           headerTitle: "Bill History",
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#4ade80",
@@ -55,7 +59,7 @@ const TabLayout = () => {
             backgroundColor: "#86EFAC",
           },
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="newsletter" size={size} color={color} />
+            <MaterialCommunityIcons name="history" size={size} color={color} />
           ),
         }}
       />
@@ -73,7 +77,11 @@ const TabLayout = () => {
             backgroundColor: "#86EFAC",
           },
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="user-circle" size={size} color={color} />
+            <MaterialCommunityIcons
+              name="account-circle"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />

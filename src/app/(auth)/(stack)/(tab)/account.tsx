@@ -1,24 +1,19 @@
 import { useState } from "react";
 import { Link, useRouter } from "expo-router";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  RefreshControl,
-} from "react-native";
-
+import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { Octicons } from "@expo/vector-icons";
-
 import Button from "@/src/components/Button";
 import { removeData } from "@/src/helpers";
-import { useGetUserData } from "@/src/hooks/useGetUserData";
 import ChangePasswordModal from "@/src/pageComponent/account/ChangePasswordModal";
+import { useFetch } from "@/src/hooks/api";
+import { UserData } from "@/src/types/UserData";
 
 const AccountPage = () => {
   const router = useRouter();
   const [changePasswordModal, setChangePasswordModal] = useState(false);
-  const { data, isFetching, refetch } = useGetUserData();
+  const { data, isFetching, refetch } = useFetch<UserData>("/api/v1/user", [
+    "user",
+  ]);
 
   return (
     <ScrollView
