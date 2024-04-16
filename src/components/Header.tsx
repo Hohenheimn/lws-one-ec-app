@@ -8,9 +8,10 @@ import Button from "./Button";
 
 type Props = {
   name?: string;
+  isConnected?: boolean;
 };
 
-const Header = ({ name }: Props) => {
+const Header = ({ name, isConnected }: Props) => {
   const router = useRouter();
   return (
     <SafeAreaView className="bg-green-300 p-4 space-y-2 rounded-b-3xl">
@@ -44,18 +45,21 @@ const Header = ({ name }: Props) => {
           <Text className="font-medium font-poppins-sb">1234ABCD</Text>
         </Text>
       </View>
-      <Button
-        title="Link to Meter Account"
-        appearance="secondary"
-        className="rounded-full"
-        onPress={() => router.push("/(auth)/(stack)/meter-account")}
-      />
-      {/* <Button
-        title="Pay Now"
-        appearance="secondary"
-        className="rounded-full"
-        onPress={() => router.push("/payment")}
-      /> */}
+      {isConnected ? (
+        <Button
+          title="Pay Now"
+          appearance="secondary"
+          className="rounded-full"
+          onPress={() => router.push("/payment")}
+        />
+      ) : (
+        <Button
+          title="Link to Meter Account"
+          appearance="secondary"
+          className="rounded-full"
+          onPress={() => router.push("/(auth)/(stack)/meter-account")}
+        />
+      )}
     </SafeAreaView>
   );
 };

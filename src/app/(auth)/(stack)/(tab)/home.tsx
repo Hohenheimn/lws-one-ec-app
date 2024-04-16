@@ -1,8 +1,6 @@
 import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
-
 import Header from "@/src/components/Header";
-import { useGetUserData } from "@/src/hooks/useGetUserData";
 import { useFetch } from "@/src/hooks/api";
 import { AccountRegistry } from "@/src/types/AccountRegistry";
 import { UserData } from "@/src/types/UserData";
@@ -16,6 +14,12 @@ const HomePage = () => {
     "/api/v1/accountregistry/user",
     ["user-data"]
   );
+  const meterID = accountRegistryData?.data[0]?.meterId;
+  const { data: billData } = useFetch<any>(`/api/v1/bill/unpaid/${meterID}`, [
+    "user-data",
+  ]);
+
+  const isConnected = billData?.data?.length > 0;
 
   const mockdata: barDataItem[] = [
     {
@@ -62,7 +66,7 @@ const HomePage = () => {
         <RefreshControl refreshing={isFetching} onRefresh={refetch} />
       }
     >
-      <Header name={data?.data.userData.userFname} />
+      <Header name={data?.data.userData.userFname} isConnected={isConnected} />
       <View className="flex-1 overflow-hidden mx-4 my-2 p-3 border border-gray-300 rounded-lg">
         <Text className="text-2xl font-medium font-poppins-md mb-4">
           Power Usage
