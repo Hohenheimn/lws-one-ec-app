@@ -1,18 +1,13 @@
 import React from "react";
 import { Modal, View } from "react-native";
-
 import Button from "@/src/components/Button";
-
 import Heading from "@/src/components/Heading";
-
 import LabelValue from "@/src/components/LabelValue";
-
 import { dateString } from "@/src/utils/dateHelper";
-
-import { BillType } from "./BillCard";
+import { BillData } from "@/src/types/Bill";
 
 type Props = {
-  bill: BillType | null;
+  bill: BillData | null;
   onClose: () => void;
 };
 

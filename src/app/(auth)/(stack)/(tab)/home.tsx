@@ -3,9 +3,19 @@ import { BarChart, barDataItem } from "react-native-gifted-charts";
 
 import Header from "@/src/components/Header";
 import { useGetUserData } from "@/src/hooks/useGetUserData";
+import { useFetch } from "@/src/hooks/api";
+import { AccountRegistry } from "@/src/types/AccountRegistry";
+import { UserData } from "@/src/types/UserData";
 
 const HomePage = () => {
-  const { data, isFetching, refetch } = useGetUserData();
+  // const { data, isFetching, refetch } = useGetUserData();
+  const { data, isFetching, refetch } = useFetch<UserData>("/api/v1/user", [
+    "user",
+  ]);
+  const { data: accountRegistryData } = useFetch<AccountRegistry>(
+    "/api/v1/accountregistry/user",
+    ["user-data"]
+  );
 
   const mockdata: barDataItem[] = [
     {
@@ -52,7 +62,7 @@ const HomePage = () => {
         <RefreshControl refreshing={isFetching} onRefresh={refetch} />
       }
     >
-      <Header name={data?.data?.userData?.userFname} />
+      <Header name={data?.data.userData.userFname} />
       <View className="flex-1 overflow-hidden mx-4 my-2 p-3 border border-gray-300 rounded-lg">
         <Text className="text-2xl font-medium font-poppins-md mb-4">
           Power Usage

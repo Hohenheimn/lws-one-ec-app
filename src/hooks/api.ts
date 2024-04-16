@@ -4,20 +4,23 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { env } from "@/envConfig";
 
 import { retrieveData } from "../helpers";
+import api from "../utils/apiURL";
 
 const token = retrieveData("userToken");
-export const useFetch = (
+export const useFetch = <TData>(
   apiUrl: string,
   queryKey: string[],
   enabled?: boolean
 ) => {
   return useQuery({
-    queryFn: async () => {
-      return axios.get(`${env.API_HOST}${apiUrl}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    queryFn: async (): Promise<TData> => {
+      return api
+        .get(apiUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => res.data);
     },
     queryKey: queryKey,
     enabled: enabled,
