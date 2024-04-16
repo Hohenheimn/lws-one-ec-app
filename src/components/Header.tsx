@@ -43,18 +43,18 @@ const Header = ({ name }: Props) => {
           <Text className="font-medium font-poppins-sb">1234ABCD</Text>
         </Text>
       </View>
-      {/* <Button
+      <Button
         title="Link to Meter Account"
         appearance="secondary"
         className="rounded-full"
         onPress={() => router.push("/meter-account")}
-      /> */}
-      <Button
+      />
+      {/* <Button
         title="Pay Now"
         appearance="secondary"
         className="rounded-full"
         onPress={() => router.push("/payment")}
-      />
+      /> */}
     </SafeAreaView>
   );
 };

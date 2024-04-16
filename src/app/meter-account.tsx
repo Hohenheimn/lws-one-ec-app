@@ -1,28 +1,52 @@
-import { View, Text, Image, ScrollView } from "react-native";
-import React from "react";
-import { KeyboardShift } from "../components/KeyboardShift";
+import { View, Text, Image, ActivityIndicator } from "react-native";
 import SelectController from "../components/SelectController";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import InputController from "../components/InputController";
 import { useRouter } from "expo-router";
+import { useGetCoop } from "../hooks/useGetCoop";
+import { z } from "zod";
+import { MeterAccountSchema } from "../schema/MeterAccountSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ScreenLoader from "../components/ScreenLoader";
+
+type FormValues = z.infer<typeof MeterAccountSchema>;
 
 const MeterAccountScreen = () => {
   const router = useRouter();
+  const { data, isLoading } = useGetCoop();
+
   const {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm({
+  } = useForm<FormValues>({
     mode: "onBlur",
     defaultValues: {
-      coop: "",
+      coop: 0,
+      meterNumber: "",
     },
+    resolver: zodResolver(MeterAccountSchema),
   });
 
+  if (isLoading) {
+    return <ScreenLoader />;
+  }
+
   const onSubmit = (data: any) => {
-    router.push(`/meter-details`);
+    router.push({
+      pathname: "/meter-details",
+      params: data,
+    });
   };
+
+  const coopData = data?.data.map((item) => {
+    return {
+      label: item.coopName,
+      value: item.id,
+    };
+  });
+
   return (
     <View className="bg-white flex-1 p-4">
       <View className="py-4 justify-center items-center">
@@ -38,23 +62,21 @@ const MeterAccountScreen = () => {
         </Text>
         <InputController
           type="default"
-          placeholder="Seach..."
+          placeholder="eg. 123456789"
           label="Search Meter Number"
           errors={errors}
-          name={"name"}
+          name="meterNumber"
           control={control}
         />
         <SelectController
           name="coop"
           control={control}
           placeholder="Select coop"
-          data={[
-            { label: "test", value: "test" },
-            { label: "test 2", value: "test 2" },
-          ]}
+          data={coopData || []}
+          errors={errors}
         />
         <Button
-          title="Submit"
+          title="Search"
           appearance="primary"
           buttonClassname="mb-2"
           onPress={handleSubmit(onSubmit)}
