@@ -3,7 +3,7 @@ import { Stack } from "expo-router";
 
 const StackLayout = () => {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack>
       <Stack.Screen
         name="account-details"
         options={{ headerTitle: "Account Details" }}
@@ -17,6 +17,10 @@ const StackLayout = () => {
         options={{ headerTitle: "Meter Details" }}
       />
       <Stack.Screen name="payment" options={{ headerTitle: "Payment" }} />
+      <Stack.Screen
+        name="(tab)"
+        options={{ headerShown: false, headerTitle: "Back" }}
+      />
     </Stack>
   );
 };
