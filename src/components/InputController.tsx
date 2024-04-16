@@ -3,6 +3,7 @@ import { Controller } from "react-hook-form";
 import { View, Text, TextInput, TextInputProps } from "react-native";
 import { twMerge } from "tailwind-merge";
 
+
 type Props = {
   classname?: string;
   label?: string;
@@ -30,7 +31,7 @@ const InputController = ({
       control={control}
       render={({ field: { onChange, onBlur, value } }) => {
         return (
-          <View className="my-2">
+          <View className={twMerge("my-2", classname)}>
             {label && (
               <Text
                 className={twMerge("font-poppins", isFocused && "text-primary")}

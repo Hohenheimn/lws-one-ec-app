@@ -3,9 +3,11 @@ import { Link } from "expo-router";
 
 import { Modal, Image, View } from "react-native";
 
+
 import Button from "./Button";
 import Heading from "./Heading";
 import Paragraph from "./Paragraph";
+
 
 type Props = {
   visible: boolean;
@@ -37,7 +39,7 @@ const MessageModal = ({
           className=" w-96 h-96"
           resizeMode="contain"
         />
-        <Link href="/sign-in">go to sign in</Link>
+
         <Heading size={"large"} classname="text-center mb-5">
           {title}
         </Heading>
