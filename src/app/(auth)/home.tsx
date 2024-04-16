@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
+
 import Header from "@/src/components/Header";
 import { useGetUserData } from "@/src/hooks/useGetUserData";
-import { LinearGradient } from "expo-linear-gradient";
 
 const HomePage = () => {
   const { data, isFetching, refetch } = useGetUserData();
