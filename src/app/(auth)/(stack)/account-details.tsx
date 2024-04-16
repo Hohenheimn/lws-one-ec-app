@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import {
   View,
@@ -7,26 +8,26 @@ import {
   ScrollView,
   RefreshControl,
 } from "react-native";
+
 import { z } from "zod";
 
 import { Octicons } from "@expo/vector-icons";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
-
-import Button from "../components/Button";
-import DatePickerController from "../components/DatePickerController";
-import ErrorMessage from "../components/ErrorMessage";
-import InputController from "../components/InputController";
-import MessageModal from "../components/MessageModal";
-import { usePost } from "../hooks/api";
-import { useGetUserData } from "../hooks/useGetUserData";
-import { userProfileSchema } from "../schema/userProfileSchema";
-
+import Button from "../../../components/Button";
+import DatePickerController from "../../../components/DatePickerController";
+import ErrorMessage from "../../../components/ErrorMessage";
+import InputController from "../../../components/InputController";
+import MessageModal from "../../../components/MessageModal";
+import { usePost } from "../../../hooks/api";
+import { useGetUserData } from "../../../hooks/useGetUserData";
+import { userProfileSchema } from "../../../schema/userProfileSchema";
 
 type FormValues = z.infer<typeof userProfileSchema>;
 
 const AccountDetailsScreen = () => {
+  const router = useRouter();
   const [isError, setError] = React.useState("");
   const [modal, setModal] = React.useState(false);
   const { data, isFetching, refetch } = useGetUserData();
@@ -152,6 +153,13 @@ const AccountDetailsScreen = () => {
           buttonClassname="mb-2"
           onPress={handleSubmit(onSubmit)}
           loading={updating}
+        />
+        <Button
+          title="Cancel"
+          appearance="default"
+          onPress={() => {
+            router.push("/(auth)/(tab)/account");
+          }}
         />
       </View>
     </ScrollView>

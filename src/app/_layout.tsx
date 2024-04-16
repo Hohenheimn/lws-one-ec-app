@@ -40,33 +40,6 @@ const RootLayoutNav = () => {
     <QueryClientProvider client={queryClient}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="payment"
-          options={{ headerTitle: "", headerShadowVisible: false }}
-        />
-        <Stack.Screen
-          name="meter-account"
-          options={{
-            headerTitle: "Meter Account",
-            headerTitleStyle: {
-              fontFamily: "poppins-md",
-            },
-            headerShadowVisible: false,
-            headerStyle: {
-              backgroundColor: "white",
-            },
-          }}
-        />
-        <Stack.Screen
-          name="meter-details"
-          options={{
-            headerTitle: "",
-            headerShadowVisible: false,
-            headerStyle: {
-              backgroundColor: "white",
-            },
-          }}
-        />
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
         <Stack.Screen name="sign-up" options={{ headerShown: false }} />
         <Stack.Screen
@@ -74,19 +47,6 @@ const RootLayoutNav = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="account-details"
-          options={{
-            headerTitle: "Edit Account Details",
-            headerTitleStyle: {
-              fontFamily: "poppins-md",
-            },
-            headerShadowVisible: false,
-            headerStyle: {
-              backgroundColor: "#86EFAC",
-            },
-          }}
-        />
       </Stack>
     </QueryClientProvider>
   );

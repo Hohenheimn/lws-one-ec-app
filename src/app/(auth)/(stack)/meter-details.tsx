@@ -1,12 +1,13 @@
-import { View, Text, Modal, Image } from "react-native";
 import React, { useState } from "react";
-import Description from "../components/Description";
-import Button from "../components/Button";
-import { useGetMeterAccount } from "../hooks/useGetMeterAccount";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import ScreenLoader from "../components/ScreenLoader";
-import ScreenError from "../components/ScreenError";
-import { useAddMeterAccount } from "../hooks/useAddMeterAccount";
+import { View, Text, Modal, Image } from "react-native";
+
+import Button from "../../../components/Button";
+import Description from "../../../components/Description";
+import ScreenError from "../../../components/ScreenError";
+import ScreenLoader from "../../../components/ScreenLoader";
+import { useAddMeterAccount } from "../../../hooks/useAddMeterAccount";
+import { useGetMeterAccount } from "../../../hooks/useGetMeterAccount";
 
 const MeterDetails = () => {
   const router = useRouter();
@@ -77,7 +78,7 @@ const MeterDetails = () => {
         <View className="flex-1">
           <View className="flex-1 items-center">
             <Image
-              source={require("../../assets/images/message_success.png")}
+              source={require("../../../../assets/images/message_success.png")}
               className="w-72"
               style={{ objectFit: "contain" }}
             />
