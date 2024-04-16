@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Octicons } from "@expo/vector-icons";
 
@@ -22,7 +22,7 @@ const Payment = () => {
       <View className="flex-[0.6] justify-center items-center">
         <Text className="text-2xl font-poppins-sb font-semibold">Pay Now</Text>
         <Image
-          source={require("../../assets/images/payment.png")}
+          source={require("../../../../assets/images/payment.png")}
           className="w-56 h-56"
         />
       </View>
@@ -40,11 +40,11 @@ const Payment = () => {
           <View className="flex-row items-end justify-between">
             <Text className="font-poppins-md font-medium flex-1">E-Wallet</Text>
             <Image
-              source={require("../../assets/images/gcash_logo.png")}
+              source={require("../../../../assets/images/gcash_logo.png")}
               className="w-28 h-6"
             />
             <Image
-              source={require("../../assets/images/maya.png")}
+              source={require("../../../../assets/images/maya.png")}
               style={{ objectFit: "contain" }}
               className="w-[60px] h-6"
             />
@@ -63,7 +63,7 @@ const Payment = () => {
                 </Text>
               </View>
               <Image
-                source={require("../../assets/images/gcash_logo.png")}
+                source={require("../../../../assets/images/gcash_logo.png")}
                 className="w-28 h-6"
               />
             </TouchableOpacity>
@@ -78,7 +78,7 @@ const Payment = () => {
                 </Text>
               </View>
               <Image
-                source={require("../../assets/images/maya.png")}
+                source={require("../../../../assets/images/maya.png")}
                 style={{ objectFit: "contain" }}
                 className="w-[60px] h-6"
               />
@@ -91,7 +91,7 @@ const Payment = () => {
               Card Payment
             </Text>
             <Image
-              source={require("../../assets/images/visa_mastercard.png")}
+              source={require("../../../../assets/images/visa_mastercard.png")}
               className="w-40 h-6"
             />
           </View>

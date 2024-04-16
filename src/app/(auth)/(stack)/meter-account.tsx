@@ -1,14 +1,15 @@
-import { View, Text, Image, ActivityIndicator } from "react-native";
-import SelectController from "../components/SelectController";
-import { useForm } from "react-hook-form";
-import Button from "../components/Button";
-import InputController from "../components/InputController";
 import { useRouter } from "expo-router";
-import { useGetCoop } from "../hooks/useGetCoop";
+import { useForm } from "react-hook-form";
+import { View, Text, Image, ActivityIndicator } from "react-native";
 import { z } from "zod";
-import { MeterAccountSchema } from "../schema/MeterAccountSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import ScreenLoader from "../components/ScreenLoader";
+
+import Button from "../../../components/Button";
+import InputController from "../../../components/InputController";
+import ScreenLoader from "../../../components/ScreenLoader";
+import SelectController from "../../../components/SelectController";
+import { useGetCoop } from "../../../hooks/useGetCoop";
+import { MeterAccountSchema } from "../../../schema/MeterAccountSchema";
 
 type FormValues = z.infer<typeof MeterAccountSchema>;
 
@@ -51,7 +52,7 @@ const MeterAccountScreen = () => {
     <View className="bg-white flex-1 p-4">
       <View className="py-4 justify-center items-center">
         <Image
-          source={require("../../assets/images/search_vector.png")}
+          source={require("../../../../assets/images/search_vector.png")}
           style={{ objectFit: "cover" }}
           className="aspect-square w-80 h-80"
         />

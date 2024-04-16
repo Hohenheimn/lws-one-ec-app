@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
-import { Octicons } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useRouter } from "expo-router";
+import { View, Text, TouchableOpacity, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Octicons } from "@expo/vector-icons";
+
 import Button from "./Button";
 
 type Props = {
@@ -47,7 +48,7 @@ const Header = ({ name }: Props) => {
         title="Link to Meter Account"
         appearance="secondary"
         className="rounded-full"
-        onPress={() => router.push("/meter-account")}
+        onPress={() => router.push("/(auth)/(stack)/meter-account")}
       />
       {/* <Button
         title="Pay Now"
