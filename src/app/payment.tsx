@@ -1,8 +1,22 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import DropDownPicker from "react-native-dropdown-picker";
+import { Octicons } from "@expo/vector-icons";
+
+const items = [
+  {
+    label: "GCASH",
+    value: "gcash",
+  },
+  {
+    label: "Paymaya",
+    value: "maya",
+  },
+];
 
 const Payment = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <View className="flex-1 bg-white">
       <View className="flex-[0.6] justify-center items-center">
@@ -16,6 +30,7 @@ const Payment = () => {
         <Text className="text-center text-lg font-poppins-sb font-semiboldr">
           Choose Your Payment Method
         </Text>
+
         <TouchableOpacity
           className="border border-gray-500 rounded-lg p-4"
           onPress={() => {
@@ -36,26 +51,44 @@ const Payment = () => {
           </View>
         </TouchableOpacity>
         {isOpen && (
-          <View className="space-y-1">
-            <TouchableOpacity className="border border-gray-300 rounded-lg px-1 py-2">
+          <>
+            <TouchableOpacity className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between">
+              <View className="flex-1">
+                <Text className="font-poppins-sb font-semibold text-lg">
+                  GCASH
+                </Text>
+                <Text className="text-gray-600">
+                  Payment {"(min. ₱50)"} should be completed within 30 mins.
+                  Accesible 24/7 and may entail 2% additional fee.
+                </Text>
+              </View>
               <Image
                 source={require("../../assets/images/gcash_logo.png")}
                 className="w-28 h-6"
               />
             </TouchableOpacity>
-            <TouchableOpacity className="border border-gray-300 rounded-lg px-4 py-2">
+            <TouchableOpacity className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between">
+              <View className="flex-1">
+                <Text className="font-poppins-sb font-semibold text-lg">
+                  Paymaya
+                </Text>
+                <Text className="text-gray-600">
+                  Payment {"(min. ₱50)"} should be completed within 30 mins.
+                  Accesible 24/7 and may entail 2% additional fee.
+                </Text>
+              </View>
               <Image
                 source={require("../../assets/images/maya.png")}
                 style={{ objectFit: "contain" }}
                 className="w-[60px] h-6"
               />
             </TouchableOpacity>
-          </View>
+          </>
         )}
-        <TouchableOpacity className="border border-gray-500 rounded-lg p-4">
+        <TouchableOpacity className="border border-gray-500 rounded-lg p-3">
           <View className="flex-row items-center justify-between ">
             <Text className="font-poppins-md font-medium flex-1">
-              Debit Card
+              Card Payment
             </Text>
             <Image
               source={require("../../assets/images/visa_mastercard.png")}

@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
 
