@@ -3,7 +3,7 @@ import { Stack } from "expo-router";
 
 const StackLayout = () => {
   return (
-    <Stack>
+    <Stack screenOptions={{ headerShadowVisible: false }}>
       <Stack.Screen
         name="account-details"
         options={{ headerTitle: "Account Details" }}
