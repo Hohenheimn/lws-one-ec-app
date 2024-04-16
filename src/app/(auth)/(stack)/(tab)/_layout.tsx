@@ -28,6 +28,9 @@ const TabLayout = () => {
             fontFamily: "poppins",
           },
           headerTitle: "History Of Transaction",
+          headerTitleStyle: {
+            fontFamily: "poppins-sb",
+          },
           tabBarInactiveTintColor: "#707070",
           tabBarActiveTintColor: "#4ade80",
           headerStyle: {
@@ -45,6 +48,9 @@ const TabLayout = () => {
           tabBarLabel: "Bill History",
           tabBarLabelStyle: {
             fontFamily: "poppins",
+          },
+          headerTitleStyle: {
+            fontFamily: "poppins-sb",
           },
           headerTitle: "Bill History",
           tabBarInactiveTintColor: "#707070",
