@@ -29,7 +29,8 @@ const Payment = () => {
     mutate(
       {},
       {
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
+          await new Promise((resolve) => setTimeout(resolve, 3000));
           router.push({
             pathname: "/payment-screen",
             params: { url: data.data.data.url },
