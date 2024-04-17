@@ -1,21 +1,29 @@
+import ScreenError from "@/src/components/ScreenError";
+import ScreenLoader from "@/src/components/ScreenLoader";
+import { usePost } from "@/src/hooks/api";
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
-import { Octicons } from "@expo/vector-icons";
-
-const items = [
-  {
-    label: "GCASH",
-    value: "gcash",
-  },
-  {
-    label: "Paymaya",
-    value: "maya",
-  },
-];
 
 const Payment = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { data, mutate, isError, isPending } = usePost(
+    "/api/v1/payment/request/?method=gcash"
+  );
+
+  if (isPending) {
+    return <ScreenLoader />;
+  }
+  if (isError) {
+    return (
+      <ScreenError
+        message="Payment failed"
+        description="Something went wrong, please try again later."
+      />
+    );
+  }
+
+  console.log(data, "payment");
 
   return (
     <View className="flex-1 bg-white">
@@ -52,7 +60,10 @@ const Payment = () => {
         </TouchableOpacity>
         {isOpen && (
           <>
-            <TouchableOpacity className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between">
+            <TouchableOpacity
+              className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between"
+              onPress={() => mutate({})}
+            >
               <View className="flex-1">
                 <Text className="font-poppins-sb font-semibold text-lg">
                   GCASH

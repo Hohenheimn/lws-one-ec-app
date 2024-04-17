@@ -13,6 +13,7 @@ type Props = {
 
 const Header = ({ name, isConnected }: Props) => {
   const router = useRouter();
+
   return (
     <SafeAreaView className="bg-green-300 p-4 space-y-2 rounded-b-3xl">
       <View className="justify-between items-center flex-row">
@@ -45,7 +46,7 @@ const Header = ({ name, isConnected }: Props) => {
           <Text className="font-medium font-poppins-sb">1234ABCD</Text>
         </Text>
       </View>
-      {isConnected ? (
+      {true ? (
         <Button
           title="Pay Now"
           appearance="secondary"
