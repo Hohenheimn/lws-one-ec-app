@@ -3,11 +3,9 @@ import { Link } from "expo-router";
 
 import { Modal, Image, View } from "react-native";
 
-
 import Button from "./Button";
 import Heading from "./Heading";
 import Paragraph from "./Paragraph";
-
 
 type Props = {
   visible: boolean;
@@ -43,9 +41,12 @@ const MessageModal = ({
         <Heading size={"large"} classname="text-center mb-5">
           {title}
         </Heading>
-        <Paragraph classname=" text-center text-gray-400 mb-5">
-          {description}
-        </Paragraph>
+        {description && (
+          <Paragraph classname=" text-center text-gray-400 mb-5">
+            {description}
+          </Paragraph>
+        )}
+
         <Button
           title={buttonName}
           appearance={"primary"}
