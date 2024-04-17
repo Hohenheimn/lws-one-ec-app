@@ -1,6 +1,6 @@
-import { View, Text } from "react-native";
 import React, { useState } from "react";
 import { Controller } from "react-hook-form";
+import { View, Text } from "react-native";
 import { ItemType } from "react-native-dropdown-picker";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Octicons } from "@expo/vector-icons";

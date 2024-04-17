@@ -57,7 +57,7 @@ const Header = ({ name, isConnected }: Props) => {
           title="Link to Meter Account"
           appearance="secondary"
           className="rounded-full"
-          onPress={() => router.push("/(auth)/(stack)/meter-account")}
+          onPress={() => router.push("/meter-account")}
         />
       )}
     </SafeAreaView>
