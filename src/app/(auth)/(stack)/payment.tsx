@@ -1,13 +1,15 @@
 import ScreenError from "@/src/components/ScreenError";
 import ScreenLoader from "@/src/components/ScreenLoader";
 import { usePost } from "@/src/hooks/api";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
 const Payment = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data, mutate, isError, isPending } = usePost(
+  const { mutate, isError, isPending } = usePost(
     "/api/v1/payment/request/?method=gcash"
   );
 
@@ -23,7 +25,19 @@ const Payment = () => {
     );
   }
 
-  console.log(data, "payment");
+  const handlePayment = () => {
+    mutate(
+      {},
+      {
+        onSuccess: (data) => {
+          router.push({
+            pathname: "/payment-screen",
+            params: { url: data.data.data.url },
+          });
+        },
+      }
+    );
+  };
 
   return (
     <View className="flex-1 bg-white">
@@ -62,7 +76,7 @@ const Payment = () => {
           <>
             <TouchableOpacity
               className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between"
-              onPress={() => mutate({})}
+              onPress={handlePayment}
             >
               <View className="flex-1">
                 <Text className="font-poppins-sb font-semibold text-lg">

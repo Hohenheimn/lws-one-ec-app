@@ -17,6 +17,7 @@ const StackLayout = () => {
         options={{ headerTitle: "Meter Details" }}
       />
       <Stack.Screen name="payment" options={{ headerTitle: "Payment" }} />
+      <Stack.Screen name="payment-screen" options={{ headerTitle: "" }} />
       <Stack.Screen
         name="(tab)"
         options={{ headerShown: false, headerTitle: "Back" }}

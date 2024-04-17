@@ -46,7 +46,7 @@ const Header = ({ name, isConnected }: Props) => {
           <Text className="font-medium font-poppins-sb">1234ABCD</Text>
         </Text>
       </View>
-      {true ? (
+      {isConnected ? (
         <Button
           title="Pay Now"
           appearance="secondary"
