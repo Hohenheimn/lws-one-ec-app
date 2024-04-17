@@ -18,6 +18,13 @@ const AccountPage = () => {
     "user",
   ]);
 
+  const signOutHandler = async () => {
+    queryClient.clear();
+    queryClient.removeQueries();
+    await removeData("userToken");
+    router.push("/");
+  };
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -113,11 +120,7 @@ const AccountPage = () => {
         <Button
           title={"Sign Out Account"}
           appearance={"primary"}
-          onPress={() => {
-            queryClient.clear();
-            removeData("userToken");
-            router.push("/");
-          }}
+          onPress={signOutHandler}
         />
       </View>
     </ScrollView>

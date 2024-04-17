@@ -1,4 +1,4 @@
-import axios, { ResponseType } from "axios";
+import axios from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { env } from "@/envConfig";
@@ -6,9 +6,6 @@ import { env } from "@/envConfig";
 import { retrieveData } from "../helpers";
 import api from "../utils/apiURL";
 
-const token = retrieveData("userToken");
-console.log("token");
-console.log(token);
 export const useFetch = <TData>(
   apiUrl: string,
   queryKey: string[],
@@ -16,6 +13,7 @@ export const useFetch = <TData>(
 ) => {
   return useQuery({
     queryFn: async (): Promise<TData> => {
+      const token = retrieveData("userToken");
       return api
         .get(apiUrl, {
           headers: {
@@ -36,6 +34,7 @@ export const usePost = (
 ) => {
   return useMutation({
     mutationFn: async (payload: any) => {
+      const token = retrieveData("userToken");
       return axios.post(`${env.API_HOST}${apiUrl}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -54,6 +53,7 @@ export const usePostNoToken = (
 ) => {
   return useMutation({
     mutationFn: (payload: any) => {
+      const token = retrieveData("userToken");
       return axios.post(`${env.API_HOST}${apiUrl}`, payload);
     },
     onSuccess,
