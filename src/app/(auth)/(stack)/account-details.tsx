@@ -20,9 +20,9 @@ import DatePickerController from "../../../components/DatePickerController";
 import ErrorMessage from "../../../components/ErrorMessage";
 import InputController from "../../../components/InputController";
 import MessageModal from "../../../components/MessageModal";
-import { usePost } from "../../../hooks/api";
-import { useGetUserData } from "../../../hooks/useGetUserData";
+import { useFetch, usePost } from "../../../hooks/api";
 import { userProfileSchema } from "../../../schema/userProfileSchema";
+import { UserData } from "@/src/types/UserData";
 
 type FormValues = z.infer<typeof userProfileSchema>;
 
@@ -30,7 +30,9 @@ const AccountDetailsScreen = () => {
   const router = useRouter();
   const [isError, setError] = React.useState("");
   const [modal, setModal] = React.useState(false);
-  const { data, isFetching, refetch } = useGetUserData();
+  const { data, isFetching, refetch } = useFetch<UserData>("/api/v1/user", [
+    "user",
+  ]);
   const {
     handleSubmit,
     formState: { errors },
@@ -47,23 +49,16 @@ const AccountDetailsScreen = () => {
     resolver: zodResolver(userProfileSchema),
   });
 
-  const onSuccess = async (res: any) => {
-    setModal(true);
-  };
-
-  const onError = (res: any) => {
-    setError(res.response.data.message);
-  };
-
   const { mutate: updateProfile, isPending: updating } = usePost(
-    "/api/v1/user/update",
-    onSuccess,
-    onError
+    "/api/v1/user/update"
   );
 
   const onSubmit = (data: FormValues) => {
     setError("");
-    updateProfile(data);
+    updateProfile(data, {
+      onSuccess: () => setModal(true),
+      onError: (res: any) => setError(res.response.data.message),
+    });
   };
 
   const onClose = async () => {
@@ -158,7 +153,7 @@ const AccountDetailsScreen = () => {
           title="Cancel"
           appearance="default"
           onPress={() => {
-            router.push("/(auth)/(tab)/account");
+            router.push("/(auth)/(stack)/(tab)/account");
           }}
         />
       </View>
