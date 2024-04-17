@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
-import { View, Text, Image, ActivityIndicator } from "react-native";
+import { View, Text, Image } from "react-native";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -8,14 +8,15 @@ import Button from "../../../components/Button";
 import InputController from "../../../components/InputController";
 import ScreenLoader from "../../../components/ScreenLoader";
 import SelectController from "../../../components/SelectController";
-import { useGetCoop } from "../../../hooks/useGetCoop";
 import { MeterAccountSchema } from "../../../schema/MeterAccountSchema";
+import { useFetch } from "@/src/hooks/api";
+import { CoopData } from "@/src/types/CoopData";
 
 type FormValues = z.infer<typeof MeterAccountSchema>;
 
 const MeterAccountScreen = () => {
   const router = useRouter();
-  const { data, isLoading } = useGetCoop();
+  const { data, isLoading } = useFetch<CoopData>("/api/v1/coop", ["coop"]);
 
   const {
     handleSubmit,

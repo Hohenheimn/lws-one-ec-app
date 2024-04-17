@@ -27,22 +27,16 @@ export const useFetch = <TData>(
   });
 };
 
-export const usePost = (
-  apiUrl: string,
-  onSuccess: (res?: any) => void,
-  onError: (res?: any) => void
-) => {
+export const usePost = (apiUrl: string) => {
+  const token = retrieveData("userToken");
   return useMutation({
     mutationFn: async (payload: any) => {
-      const token = retrieveData("userToken");
-      return axios.post(`${env.API_HOST}${apiUrl}`, payload, {
+      return api.post(apiUrl, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
     },
-    onSuccess: onSuccess,
-    onError: onError,
   });
 };
 

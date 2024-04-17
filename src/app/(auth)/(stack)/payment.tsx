@@ -1,21 +1,44 @@
+import ScreenError from "@/src/components/ScreenError";
+import ScreenLoader from "@/src/components/ScreenLoader";
+import { usePost } from "@/src/hooks/api";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
-import { Octicons } from "@expo/vector-icons";
-
-const items = [
-  {
-    label: "GCASH",
-    value: "gcash",
-  },
-  {
-    label: "Paymaya",
-    value: "maya",
-  },
-];
 
 const Payment = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+
+  const { mutate, isError, isPending } = usePost(
+    "/api/v1/payment/request/?method=gcash"
+  );
+
+  if (isPending) {
+    return <ScreenLoader />;
+  }
+  if (isError) {
+    return (
+      <ScreenError
+        message="Payment failed"
+        description="Something went wrong, please try again later."
+      />
+    );
+  }
+
+  const handlePayment = () => {
+    mutate(
+      {},
+      {
+        onSuccess: async (data) => {
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+          router.push({
+            pathname: "/payment-screen",
+            params: { url: data.data.data.url },
+          });
+        },
+      }
+    );
+  };
 
   return (
     <View className="flex-1 bg-white">
@@ -52,7 +75,10 @@ const Payment = () => {
         </TouchableOpacity>
         {isOpen && (
           <>
-            <TouchableOpacity className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between">
+            <TouchableOpacity
+              className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between"
+              onPress={handlePayment}
+            >
               <View className="flex-1">
                 <Text className="font-poppins-sb font-semibold text-lg">
                   GCASH
