@@ -7,6 +7,8 @@ import { retrieveData } from "../helpers";
 import api from "../utils/apiURL";
 
 const token = retrieveData("userToken");
+console.log("token");
+console.log(token);
 export const useFetch = <TData>(
   apiUrl: string,
   queryKey: string[],

@@ -39,6 +39,8 @@ const SignInScreen = () => {
   const onSuccess = async (res: any) => {
     setError("");
     const token = res.data.data.token;
+    console.log("token");
+    console.log(token);
     storedData("userToken", token);
     router.push("/home");
   };
