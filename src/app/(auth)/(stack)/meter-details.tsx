@@ -78,7 +78,11 @@ const MeterDetails = () => {
         appearance="default"
         onPress={() => router.back()}
       />
-      <Modal visible={isOpen} onRequestClose={() => setIsOpen(false)}>
+      <Modal
+        visible={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        animationType="slide"
+      >
         <View className="flex-1">
           <View className="flex-1 items-center">
             <Image
