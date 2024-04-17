@@ -28,6 +28,7 @@ export const useFetch = <TData>(
 };
 
 export const usePost = (apiUrl: string) => {
+  const token = retrieveData("userToken");
   return useMutation({
     mutationFn: async (payload: any) => {
       return axios.post(`${env.API_HOST}${apiUrl}`, payload, {

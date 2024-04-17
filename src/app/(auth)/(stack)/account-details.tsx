@@ -162,22 +162,6 @@ const AccountDetailsScreen = () => {
         </View>
       </ScrollView>
     </KeyboardShift>
-        <Button
-          title="Submit"
-          appearance="primary"
-          buttonClassname="mb-2"
-          onPress={handleSubmit(onSubmit)}
-          loading={updating}
-        />
-        <Button
-          title="Cancel"
-          appearance="default"
-          onPress={() => {
-            router.push("/(auth)/(stack)/(tab)/account");
-          }}
-        />
-      </View>
-    </ScrollView>
   );
 };
 
