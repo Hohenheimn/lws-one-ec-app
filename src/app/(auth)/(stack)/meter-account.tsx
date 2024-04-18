@@ -83,6 +83,14 @@ const MeterAccountScreen = () => {
           buttonClassname="mb-2"
           onPress={handleSubmit(onSubmit)}
         />
+        <Button
+          title="Cancel"
+          appearance="default"
+          buttonClassname="mb-2"
+          onPress={() => {
+            router.back();
+          }}
+        />
       </View>
     </View>
   );

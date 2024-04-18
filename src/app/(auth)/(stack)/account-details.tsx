@@ -9,6 +9,8 @@ import {
   RefreshControl,
 } from "react-native";
 
+import { useDispatch } from "react-redux";
+
 import { z } from "zod";
 
 import { Octicons } from "@expo/vector-icons";
@@ -16,6 +18,10 @@ import { Octicons } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { KeyboardShift } from "@/src/components/KeyboardShift";
+import { showModalMessage } from "@/src/state/modalMessage/modalMessageSlice";
+import { AppDispatch } from "@/src/state/store";
+
+import { UserData } from "@/src/types/UserData";
 
 import Button from "../../../components/Button";
 import DatePickerController from "../../../components/DatePickerController";
@@ -24,12 +30,12 @@ import InputController from "../../../components/InputController";
 import MessageModal from "../../../components/MessageModal";
 import { useFetch, usePost } from "../../../hooks/api";
 import { userProfileSchema } from "../../../schema/userProfileSchema";
-import { UserData } from "@/src/types/UserData";
 
 type FormValues = z.infer<typeof userProfileSchema>;
 
 const AccountDetailsScreen = () => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const [isError, setError] = React.useState("");
   const [modal, setModal] = React.useState(false);
   const { data, isFetching, refetch } = useFetch<UserData>("/api/v1/user", [
@@ -51,6 +57,22 @@ const AccountDetailsScreen = () => {
     resolver: zodResolver(userProfileSchema),
   });
 
+  const onSuccess = () => {
+    dispatch(
+      showModalMessage({
+        status: "succeeded",
+        title: "Profile Successfully Updated",
+        visible: true,
+        buttonName: "Close",
+        description: null,
+      })
+    );
+  };
+
+  const onError = (res: any) => {
+    setError(res.response.data.message);
+  };
+
   const { mutate: updateProfile, isPending: updating } = usePost(
     "/api/v1/user/update"
   );
@@ -62,11 +84,6 @@ const AccountDetailsScreen = () => {
       onError: (res: any) => setError(res.response.data.message),
     });
   };
-
-  const onClose = async () => {
-    setModal(false);
-  };
-
   return (
     <KeyboardShift classname={""}>
       <ScrollView
@@ -75,14 +92,6 @@ const AccountDetailsScreen = () => {
           <RefreshControl refreshing={isFetching} onRefresh={refetch} />
         }
       >
-        <MessageModal
-          visible={modal}
-          title="Profile Successfully Updated"
-          description=""
-          buttonName="Done"
-          onPress={onClose}
-          onRequestClose={onClose}
-        />
         <View className="justify-center items-center flex-[0.3] bg-green-300 py-3">
           <View className="justify-center items-center rounded-full w-28 h-28 bg-green-400">
             <Octicons name="feed-person" size={72} color="white" />
