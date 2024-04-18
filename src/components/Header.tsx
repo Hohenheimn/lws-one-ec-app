@@ -25,6 +25,7 @@ const Header = ({
   dueDate,
 }: Props) => {
   const router = useRouter();
+
   return (
     <SafeAreaView className="bg-green-300 p-4 space-y-2 rounded-b-3xl">
       <View className="justify-between items-center flex-row">

@@ -21,13 +21,14 @@ import { KeyboardShift } from "@/src/components/KeyboardShift";
 import { showModalMessage } from "@/src/state/modalMessage/modalMessageSlice";
 import { AppDispatch } from "@/src/state/store";
 
+import { UserData } from "@/src/types/UserData";
+
 import Button from "../../../components/Button";
 import DatePickerController from "../../../components/DatePickerController";
 import ErrorMessage from "../../../components/ErrorMessage";
 import InputController from "../../../components/InputController";
 import MessageModal from "../../../components/MessageModal";
-import { usePost } from "../../../hooks/api";
-import { useGetUserData } from "../../../hooks/useGetUserData";
+import { useFetch, usePost } from "../../../hooks/api";
 import { userProfileSchema } from "../../../schema/userProfileSchema";
 
 type FormValues = z.infer<typeof userProfileSchema>;
@@ -36,7 +37,10 @@ const AccountDetailsScreen = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const [isError, setError] = React.useState("");
-  const { data, isFetching, refetch } = useGetUserData();
+  const [modal, setModal] = React.useState(false);
+  const { data, isFetching, refetch } = useFetch<UserData>("/api/v1/user", [
+    "user",
+  ]);
   const {
     handleSubmit,
     formState: { errors },
@@ -70,14 +74,15 @@ const AccountDetailsScreen = () => {
   };
 
   const { mutate: updateProfile, isPending: updating } = usePost(
-    "/api/v1/user/update",
-    onSuccess,
-    onError
+    "/api/v1/user/update"
   );
 
   const onSubmit = (data: FormValues) => {
     setError("");
-    updateProfile(data);
+    updateProfile(data, {
+      onSuccess: () => setModal(true),
+      onError: (res: any) => setError(res.response.data.message),
+    });
   };
   return (
     <KeyboardShift classname={""}>

@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, Modal, Image } from "react-native";
-
 import Button from "../../../components/Button";
 import Description from "../../../components/Description";
 import ScreenError from "../../../components/ScreenError";
 import ScreenLoader from "../../../components/ScreenLoader";
-import { useAddMeterAccount } from "../../../hooks/useAddMeterAccount";
-import { useGetMeterAccount } from "../../../hooks/useGetMeterAccount";
+import { useFetch, usePost } from "@/src/hooks/api";
+import { MeterAccountDetails } from "@/src/types/MeterAccountDetails";
 
 const MeterDetails = () => {
   const router = useRouter();
   const { coop, meterNumber } = useLocalSearchParams<any>();
-  const { data, isLoading } = useGetMeterAccount(meterNumber, coop);
-  const { mutate, isPending, isError } = useAddMeterAccount();
+  const { data, isLoading } = useFetch<MeterAccountDetails>(
+    `/api/v1/meterAccount/${meterNumber}/${coop}`,
+    ["meter-number"]
+  );
+  const { mutate, isPending, isError } = usePost(
+    "/api/v1/accountregistry/user"
+  );
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -74,7 +78,11 @@ const MeterDetails = () => {
         appearance="default"
         onPress={() => router.back()}
       />
-      <Modal visible={isOpen} onRequestClose={() => setIsOpen(false)}>
+      <Modal
+        visible={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        animationType="slide"
+      >
         <View className="flex-1">
           <View className="flex-1 items-center">
             <Image
