@@ -9,6 +9,8 @@ import {
   RefreshControl,
 } from "react-native";
 
+import { useDispatch } from "react-redux";
+
 import { z } from "zod";
 
 import { Octicons } from "@expo/vector-icons";
@@ -16,6 +18,8 @@ import { Octicons } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { KeyboardShift } from "@/src/components/KeyboardShift";
+import { showModalMessage } from "@/src/state/modalMessage/modalMessageSlice";
+import { AppDispatch } from "@/src/state/store";
 
 import Button from "../../../components/Button";
 import DatePickerController from "../../../components/DatePickerController";
@@ -30,8 +34,8 @@ type FormValues = z.infer<typeof userProfileSchema>;
 
 const AccountDetailsScreen = () => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const [isError, setError] = React.useState("");
-  const [modal, setModal] = React.useState(false);
   const { data, isFetching, refetch } = useGetUserData();
   const {
     handleSubmit,
@@ -49,8 +53,16 @@ const AccountDetailsScreen = () => {
     resolver: zodResolver(userProfileSchema),
   });
 
-  const onSuccess = async (res: any) => {
-    setModal(true);
+  const onSuccess = () => {
+    dispatch(
+      showModalMessage({
+        status: "succeeded",
+        title: "Profile Successfully Updated",
+        visible: true,
+        buttonName: "Close",
+        description: null,
+      })
+    );
   };
 
   const onError = (res: any) => {
@@ -67,11 +79,6 @@ const AccountDetailsScreen = () => {
     setError("");
     updateProfile(data);
   };
-
-  const onClose = async () => {
-    setModal(false);
-  };
-
   return (
     <KeyboardShift classname={""}>
       <ScrollView
@@ -80,14 +87,6 @@ const AccountDetailsScreen = () => {
           <RefreshControl refreshing={isFetching} onRefresh={refetch} />
         }
       >
-        <MessageModal
-          visible={modal}
-          title="Profile Successfully Updated"
-          description=""
-          buttonName="Done"
-          onPress={onClose}
-          onRequestClose={onClose}
-        />
         <View className="justify-center items-center flex-[0.3] bg-green-300 py-3">
           <View className="justify-center items-center rounded-full w-28 h-28 bg-green-400">
             <Octicons name="feed-person" size={72} color="white" />
