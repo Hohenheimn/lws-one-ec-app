@@ -7,6 +7,7 @@ import Paragraph from "@/src/components/Paragraph";
 import { useFetch } from "@/src/hooks/api";
 import BillDashboardItem from "@/src/pageComponent/home/BillDashboardItem";
 import { AccountRegistry } from "@/src/types/AccountRegistry";
+import { Bill, BillData } from "@/src/types/Bill";
 import { TransactionList } from "@/src/types/TransactionList";
 import { UserData } from "@/src/types/UserData";
 
@@ -45,6 +46,7 @@ const HomePage = () => {
   }, [analyticsData?.data]);
 
   const meterID = accountRegistryData?.data[0]?.meterId;
+  const meterNumber = accountRegistryData?.data[0]?.meterAccount.meterNumber;
 
   const {
     data: transaction,
@@ -52,10 +54,21 @@ const HomePage = () => {
     refetch: refetchTransactionList,
   } = useFetch<TransactionList>(
     `/api/v1/payment/all/${meterID}`,
-    ["transaction-list", meterID],
+    ["transaction-list", `${meterID}`],
     !!meterID
   );
 
+  const {
+    data: billUnpaid,
+    isFetching: billUnpaidListFetching,
+    refetch: refetchBillUnpaidList,
+  } = useFetch<Bill>(
+    `/api/v1/bill/unpaid/${meterID}`,
+    ["bill-unpaid-list", `${meterID}`],
+    !!meterID
+  );
+
+  const billUnpaidData: BillData | undefined = billUnpaid?.data[0];
   return (
     <ScrollView
       contentContainerStyle={{
@@ -65,16 +78,26 @@ const HomePage = () => {
       refreshControl={
         <RefreshControl
           refreshing={
-            isFetching || analyticsFetching || transactionListFetching
+            isFetching ||
+            analyticsFetching ||
+            transactionListFetching ||
+            billUnpaidListFetching
           }
           onRefresh={() => {
             refetch();
             refetchAnalytics();
+            refetchBillUnpaidList();
           }}
         />
       }
     >
-      <Header name={data?.data.userData.userFname} isConnected={!!meterID} />
+      <Header
+        name={data?.data.userData.userFname}
+        isConnected={!!meterID}
+        meterNumber={meterNumber}
+        outstandingAmount={Number(billUnpaidData?.totalAmountToPay)}
+        dueDate={`${Number(billUnpaidData?.dueDate)}`}
+      />
       <View className="flex-1 overflow-hidden mx-4 my-2 p-3 border border-gray-300 rounded-lg">
         <Text className="text-2xl font-medium font-poppins-md mb-4">
           Power Usage
