@@ -27,7 +27,7 @@ const BillHistoryScreen = () => {
   );
 
   return (
-    <ScrollView className="p-4 space-y-2 bg-white">
+    <ScrollView className=" bg-white">
       {!userData?.data && (
         <Paragraph classname=" text-center">No Account Found</Paragraph>
       )}
@@ -37,7 +37,7 @@ const BillHistoryScreen = () => {
         scrollEnabled={false}
         refreshing={billListFetching}
         onRefresh={refetchBillList}
-        contentContainerStyle={{ gap: 20 }}
+        contentContainerStyle={{ padding: 12, borderColor: "1px solid red" }}
         ListEmptyComponent={() => (
           <Paragraph classname=" text-center">No Bills Found</Paragraph>
         )}
