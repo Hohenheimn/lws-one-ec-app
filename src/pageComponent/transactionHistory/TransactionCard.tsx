@@ -11,7 +11,7 @@ type Props = {
 const TransactionCard = ({ transaction, onPress }: Props) => {
   return (
     <TouchableOpacity
-      className="flex-row items-start justify-between border border-gray-300 rounded-lg p-4"
+      className="flex-row items-start justify-between border border-gray-300 rounded-lg p-4 my-2"
       onPress={() => onPress(transaction)}
     >
       <View>

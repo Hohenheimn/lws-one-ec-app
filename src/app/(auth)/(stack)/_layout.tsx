@@ -8,7 +8,12 @@ const StackLayout = () => {
     >
       <Stack.Screen
         name="account-details"
-        options={{ headerTitle: "Account Details" }}
+        options={{
+          headerTitle: "Account Details",
+          headerStyle: {
+            backgroundColor: "#86efac",
+          },
+        }}
       />
       <Stack.Screen
         name="meter-account"
