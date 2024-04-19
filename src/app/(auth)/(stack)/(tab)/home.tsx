@@ -157,7 +157,7 @@ const HomePage = () => {
           onRefresh={refetchTransactionList}
           contentContainerStyle={{ gap: 10 }}
           ListEmptyComponent={() => (
-            <Paragraph classname=" text-center">No Unpaid Found</Paragraph>
+            <Paragraph classname=" text-center">No Transaction Found</Paragraph>
           )}
           renderItem={({ item, index }) => {
             return <BillDashboardItem key={index} item={item} />;
