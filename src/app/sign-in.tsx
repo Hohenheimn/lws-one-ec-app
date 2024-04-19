@@ -12,7 +12,7 @@ import Heading from "../components/Heading";
 import InputController from "../components/InputController";
 import { KeyboardShift } from "../components/KeyboardShift";
 import Paragraph from "../components/Paragraph";
-import { retrieveData, storedData } from "../helpers";
+import { storedData } from "../helpers";
 import { usePostNoToken } from "../hooks/api";
 
 const loginSchema = z.object({
