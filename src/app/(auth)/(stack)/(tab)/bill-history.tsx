@@ -37,7 +37,7 @@ const BillHistoryScreen = () => {
         scrollEnabled={false}
         refreshing={billListFetching}
         onRefresh={refetchBillList}
-        contentContainerStyle={{ padding: 12, borderColor: "1px solid red" }}
+        contentContainerStyle={{ padding: 12 }}
         ListEmptyComponent={() => (
           <Paragraph classname=" text-center">No Bills Found</Paragraph>
         )}
