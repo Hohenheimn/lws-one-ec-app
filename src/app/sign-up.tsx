@@ -13,9 +13,8 @@ import ErrorMessage from "../components/ErrorMessage";
 import Heading from "../components/Heading";
 import InputController from "../components/InputController";
 import { KeyboardShift } from "../components/KeyboardShift";
-import MessageModal from "../components/MessageModal";
 import Paragraph from "../components/Paragraph";
-import { removeData, retrieveData, storedData } from "../helpers";
+import { retrieveData, storedData } from "../helpers";
 import { usePostNoToken } from "../hooks/api";
 
 const loginSchema = z

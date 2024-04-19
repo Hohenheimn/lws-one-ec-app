@@ -37,7 +37,6 @@ const AccountDetailsScreen = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const [isError, setError] = React.useState("");
-  const [modal, setModal] = React.useState(false);
   const { data, isFetching, refetch } = useFetch<UserData>("/api/v1/user", [
     "user",
   ]);
@@ -69,10 +68,6 @@ const AccountDetailsScreen = () => {
     );
   };
 
-  const onError = (res: any) => {
-    setError(res.response.data.message);
-  };
-
   const { mutate: updateProfile, isPending: updating } = usePost(
     "/api/v1/user/update"
   );
@@ -80,7 +75,7 @@ const AccountDetailsScreen = () => {
   const onSubmit = (data: FormValues) => {
     setError("");
     updateProfile(data, {
-      onSuccess: () => setModal(true),
+      onSuccess: () => onSuccess(),
       onError: (res: any) => setError(res.response.data.message),
     });
   };
