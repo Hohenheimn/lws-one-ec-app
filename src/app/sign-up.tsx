@@ -83,7 +83,7 @@ const SignUpScreen = () => {
   }
 
   return (
-    <KeyboardShift classname=" flex-1 justify-center items-center gap-5 ">
+    <KeyboardShift classname=" flex-1 justify-center items-center gap-5 bg-white">
       <SafeAreaView className=" py-5">
         <ScrollView className=" pb-10 pt-5 px-5">
           <Heading size={"large"} classname=" mb-2 text-center">

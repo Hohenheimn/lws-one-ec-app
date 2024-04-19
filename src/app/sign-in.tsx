@@ -56,7 +56,7 @@ const SignInScreen = () => {
     login(data);
   };
   return (
-    <KeyboardShift classname=" flex-1 justify-center items-center gap-5 ">
+    <KeyboardShift classname=" flex-1 justify-center items-center gap-5 bg-white">
       <View className=" justify-center items-center">
         <Image
           source={require("../../assets/images/logo.png")}

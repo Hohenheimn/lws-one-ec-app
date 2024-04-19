@@ -1,6 +1,8 @@
 import ScreenError from "@/src/components/ScreenError";
 import ScreenLoader from "@/src/components/ScreenLoader";
+import { retrieveData } from "@/src/helpers";
 import { usePost } from "@/src/hooks/api";
+import axios from "axios";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
@@ -8,15 +10,23 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 const Payment = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  // const [paymentMethod, setPaymentMethod] = useState("");
 
-  const { mutate, isError, isPending } = usePost(
-    "/api/v1/payment/request/?method=gcash"
-  );
+  const {
+    mutate: gcash,
+    isError,
+    isPending,
+  } = usePost(`/api/v1/payment/request/?method=gcash`);
+  const {
+    mutate: paymaya,
+    isError: mayaError,
+    isPending: mayaIsPending,
+  } = usePost(`/api/v1/payment/request/?method=paymaya`);
 
-  if (isPending) {
+  if (isPending || mayaIsPending) {
     return <ScreenLoader />;
   }
-  if (isError) {
+  if (isError || mayaError) {
     return (
       <ScreenError
         message="Payment failed"
@@ -25,12 +35,25 @@ const Payment = () => {
     );
   }
 
-  const handlePayment = () => {
-    mutate(
+  const handleGcashPayment = () => {
+    gcash(
       {},
       {
         onSuccess: async (data) => {
-          await new Promise((resolve) => setTimeout(resolve, 3000));
+          router.push({
+            pathname: "/payment-screen",
+            params: { url: data.data.data.url },
+          });
+        },
+      }
+    );
+  };
+
+  const handleMayaPayment = () => {
+    paymaya(
+      {},
+      {
+        onSuccess: async (data) => {
           router.push({
             pathname: "/payment-screen",
             params: { url: data.data.data.url },
@@ -77,7 +100,7 @@ const Payment = () => {
           <>
             <TouchableOpacity
               className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between"
-              onPress={handlePayment}
+              onPress={handleGcashPayment}
             >
               <View className="flex-1">
                 <Text className="font-poppins-sb font-semibold text-lg">
@@ -93,7 +116,10 @@ const Payment = () => {
                 className="w-28 h-6"
               />
             </TouchableOpacity>
-            <TouchableOpacity className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between">
+            <TouchableOpacity
+              onPress={handleMayaPayment}
+              className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between"
+            >
               <View className="flex-1">
                 <Text className="font-poppins-sb font-semibold text-lg">
                   Paymaya
