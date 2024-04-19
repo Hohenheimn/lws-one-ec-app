@@ -17,7 +17,7 @@ const LandingScreen = () => {
     return <Redirect href="/home" />;
   }
   return (
-    <View className=" flex-1 justify-center items-center gap-5 ">
+    <View className=" flex-1 justify-center items-center gap-5 bg-white">
       <ImageBackground
         source={require("../../assets/images/welcome.png")}
         className=" flex-1 w-full rounded-b-full overflow-hidden"
