@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, Modal, Image } from "react-native";
+
+import { useFetch, usePost } from "@/src/hooks/api";
+import { MeterAccountDetails } from "@/src/types/MeterAccountDetails";
+
 import Button from "../../../components/Button";
 import Description from "../../../components/Description";
 import ScreenError from "../../../components/ScreenError";
 import ScreenLoader from "../../../components/ScreenLoader";
-import { useFetch, usePost } from "@/src/hooks/api";
-import { MeterAccountDetails } from "@/src/types/MeterAccountDetails";
 
 const MeterDetails = () => {
   const router = useRouter();
@@ -103,7 +105,10 @@ const MeterDetails = () => {
             <Button
               title="Go back"
               appearance="primary"
-              onPress={() => router.push("/home")}
+              onPress={() => {
+                setIsOpen(false);
+                router.push("/home");
+              }}
             />
           </View>
         </View>

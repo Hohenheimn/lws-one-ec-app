@@ -35,7 +35,7 @@ const Button = ({
         appearance === "link" && "bg-transparent p-0",
         buttonClassname
       )}
-      disabled={loading}
+      disabled={loading || rest.disabled}
     >
       <Text
         className={twMerge(

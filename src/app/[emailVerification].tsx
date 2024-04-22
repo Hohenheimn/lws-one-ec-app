@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { View, Image, ActivityIndicator, Pressable, Text } from "react-native";
 
+import { useDispatch } from "react-redux";
 
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
@@ -11,10 +12,12 @@ import MessageModal from "../components/MessageModal";
 import OTPInputField from "../components/OTPInputField";
 import Paragraph from "../components/Paragraph";
 import { removeData, retrieveData } from "../helpers";
-import { usePostNoToken } from "../hooks/api";
-
+import { usePostNoPayload, usePostNoToken } from "../hooks/api";
+import { showModalMessage } from "../state/modalMessage/modalMessageSlice";
+import { AppDispatch } from "../state/store";
 
 const VerificationScreen = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const [error, setError] = useState("");
   const [modal, setModal] = useState(false);
@@ -22,6 +25,17 @@ const VerificationScreen = () => {
   const [code, setCode] = useState("");
 
   const { emailVerification } = useLocalSearchParams();
+
+  const [countDown, setCoundown] = useState(180);
+
+  useEffect(() => {
+    if (countDown > 0) {
+      const countDownHandler = setInterval(() => {
+        setCoundown((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(countDownHandler);
+    }
+  });
 
   const onSuccessVerify = () => {
     setModal(true);
@@ -40,19 +54,32 @@ const VerificationScreen = () => {
     onErrorVerify
   );
 
-  const { mutate: resendOTP, isPending: sendingOTP } = usePostNoToken(
+  const { mutate: resendOTP, isPending: sendingOTP } = usePostNoPayload(
     `/api/v1/user/otp/reset/${sessionId}`,
     () => {
-      console.log("success otp");
+      setCoundown(180);
     },
     (res) => {
-      console.log(res);
-      console.log("error otp");
+      const errorMessage = res.response?.data?.message;
+      console.log(errorMessage);
+      dispatch(
+        showModalMessage({
+          status: "failed",
+          title: "Unabled to send OTP",
+          visible: true,
+          buttonName: "Close",
+          description: errorMessage,
+        })
+      );
     }
   );
 
   const onSubmitHandler = async () => {
     verify({ otp: code });
+  };
+
+  const cancelHandler = async () => {
+    router.push("/sign-in");
   };
 
   const onClose = async () => {
@@ -103,15 +130,31 @@ const VerificationScreen = () => {
           loading={isVerifying}
         />
 
+        <Button
+          title="Cancel"
+          appearance="default"
+          buttonClassname="my-2"
+          onPress={cancelHandler}
+          loading={isVerifying}
+        />
+
         <View className="flex-row items-center justify-center">
           <Paragraph>Did not receive the OTP ? </Paragraph>
           <Button
-            onPress={resendOTP}
+            onPress={() => {
+              resendOTP();
+            }}
             loading={sendingOTP}
             appearance="link"
             title="Resend"
+            // disabled={countDown > 0}
           />
         </View>
+        {countDown > 0 && (
+          <Paragraph classname=" text-center">
+            In {countDown} second/s
+          </Paragraph>
+        )}
       </View>
     </KeyboardShift>
   );

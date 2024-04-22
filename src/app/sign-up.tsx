@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Link, Redirect, router, useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Link, router } from "expo-router";
 import { useForm } from "react-hook-form";
-import { ScrollView, SafeAreaView } from "react-native";
+import { ScrollView, SafeAreaView, View, Text } from "react-native";
 
 import { z } from "zod";
 
@@ -15,7 +15,7 @@ import InputController from "../components/InputController";
 import { KeyboardShift } from "../components/KeyboardShift";
 import Paragraph from "../components/Paragraph";
 import { retrieveData, storedData } from "../helpers";
-import { usePostNoToken } from "../hooks/api";
+import { usePostNoPayload, usePostNoToken } from "../hooks/api";
 
 const loginSchema = z
   .object({
@@ -39,20 +39,25 @@ const SignUpScreen = () => {
   const [error, setError] = useState("");
   const sessionId = retrieveData("otpSessionId");
   const sessionEmail = retrieveData("otpSessionEmail");
+
+  const defaultValue = {
+    userFname: "",
+    userLname: "",
+    userPassword: "",
+    confirmPassword: "",
+    userEmail: "",
+    userDob: new Date(),
+    userContact: "",
+  };
+
   const {
     control,
+    reset,
     handleSubmit,
-    formState: { errors },
+    setValue,
+    formState: { errors, defaultValues },
   } = useForm<formData>({
-    defaultValues: {
-      userFname: "",
-      userLname: "",
-      userPassword: "",
-      confirmPassword: "",
-      userEmail: "",
-      userDob: new Date(),
-      userContact: "",
-    },
+    defaultValues: defaultValue,
     resolver: zodResolver(loginSchema),
   });
 
@@ -60,10 +65,19 @@ const SignUpScreen = () => {
     const sessionId = res?.data?.data?.sessionId;
     await storedData("otpSessionId", sessionId);
     await storedData("otpSessionEmail", email);
+    reset();
     router.push(`/${email}`);
   };
 
   const onError = (res: any) => {
+    if (
+      res.response.data.message ===
+      "User already have an otp. Please verify account first"
+    ) {
+      reset();
+      router.push(`/${email}`);
+      return;
+    }
     setError(res.response.data.message);
   };
 
@@ -73,14 +87,34 @@ const SignUpScreen = () => {
     onError
   );
 
+  // const { mutate: checkSessionID, isPending: checkSessionIDLoading } =
+  //   usePostNoPayload(
+  //     `/api/v1/user/checkSession/${sessionId || ""}`,
+  //     onSuccess,
+  //     onError
+  //   );
+
+  // useEffect(() => {
+  //   checkSessionID();
+  // }, []);
+
   const onSubmitHandler = async (data: formData) => {
     setError("");
     setEmail(data.userEmail);
     mutateSignUp(data);
   };
-  if (sessionEmail && sessionId) {
-    return <Redirect href={`/${sessionEmail}`} />;
-  }
+
+  // if (checkSessionIDLoading) {
+  //   return (
+  //     <View>
+  //       <Text>Checking Session</Text>
+  //     </View>
+  //   );
+  // }
+
+  // if (sessionEmail && sessionId) {
+  //   return <Redirect href={`/${sessionEmail}`} />;
+  // }
 
   return (
     <KeyboardShift classname=" flex-1 justify-center items-center gap-5 bg-white">

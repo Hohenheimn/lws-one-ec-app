@@ -4,13 +4,15 @@ import { View, Text, Image } from "react-native";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { KeyboardShift } from "@/src/components/KeyboardShift";
+import { useFetch } from "@/src/hooks/api";
+import { CoopData } from "@/src/types/CoopData";
+
 import Button from "../../../components/Button";
 import InputController from "../../../components/InputController";
 import ScreenLoader from "../../../components/ScreenLoader";
 import SelectController from "../../../components/SelectController";
 import { MeterAccountSchema } from "../../../schema/MeterAccountSchema";
-import { useFetch } from "@/src/hooks/api";
-import { CoopData } from "@/src/types/CoopData";
 
 type FormValues = z.infer<typeof MeterAccountSchema>;
 
@@ -50,7 +52,7 @@ const MeterAccountScreen = () => {
   });
 
   return (
-    <View className="bg-white flex-1 p-4">
+    <KeyboardShift classname="bg-white flex-1 p-4">
       <View className="py-4 justify-center items-center">
         <Image
           source={require("../../../../assets/images/search_vector.png")}
@@ -92,7 +94,7 @@ const MeterAccountScreen = () => {
           }}
         />
       </View>
-    </View>
+    </KeyboardShift>
   );
 };
 

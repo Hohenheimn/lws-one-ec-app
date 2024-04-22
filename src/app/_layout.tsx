@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import GlobalModalMessage from "../components/GlobalModalMessage";
-import MessageModal from "../components/MessageModal";
+
 import { store } from "../state/store";
 
 SplashScreen.preventAutoHideAsync();

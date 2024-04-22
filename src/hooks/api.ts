@@ -47,8 +47,21 @@ export const usePostNoToken = (
 ) => {
   return useMutation({
     mutationFn: (payload: any) => {
-      const token = retrieveData("userToken");
       return axios.post(`${env.API_HOST}${apiUrl}`, payload);
+    },
+    onSuccess,
+    onError,
+  });
+};
+
+export const usePostNoPayload = (
+  apiUrl: string,
+  onSuccess: (res?: any) => void,
+  onError: (res?: any) => void
+) => {
+  return useMutation({
+    mutationFn: () => {
+      return axios.post(`${env.API_HOST}${apiUrl}`);
     },
     onSuccess,
     onError,
