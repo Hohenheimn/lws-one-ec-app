@@ -60,6 +60,7 @@ const Header = ({
           <Text className="font-medium font-poppins-sb">{meterNumber}</Text>
         </Text>
       </View>
+
       {isConnected ? (
         <Button
           title="Pay Now"

@@ -37,7 +37,7 @@ const SelectController = <T,>({
       control={control}
       render={({ field: { onChange, onBlur, value } }) => {
         return (
-          <View className="my-2">
+          <View className="my-2 z-50">
             {label && <Text className="text-black font-poppins">{label}</Text>}
             <DropDownPicker
               value={value}

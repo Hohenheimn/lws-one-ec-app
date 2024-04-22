@@ -32,6 +32,7 @@
     "expo-system-ui": "~2.9.3",
     "expo-web-browser": "~12.8.2",
     "jwt-decode": "^4.0.0",
+    "native-notify": "^4.0.4",
     "nativewind": "^2.0.11",
     "or": "^0.2.0",
     "react": "18.2.0",
@@ -45,11 +46,14 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "^15.1.0",
     "react-native-web": "~0.19.6",
+    "react-native-webview": "13.6.4",
     "react-redux": "^9.1.1",
     "tailwind-merge": "^2.2.2",
     "yarn": "^1.22.22",
     "zod": "^3.22.4",
-    "react-native-webview": "13.6.4"
+    "expo-device": "~5.9.4",
+    "expo-notifications": "~0.27.7",
+    "expo-constants": "~15.4.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
