@@ -61,7 +61,6 @@ const VerificationScreen = () => {
     },
     (res) => {
       const errorMessage = res.response?.data?.message;
-      console.log(errorMessage);
       dispatch(
         showModalMessage({
           status: "failed",
@@ -147,7 +146,7 @@ const VerificationScreen = () => {
             loading={sendingOTP}
             appearance="link"
             title="Resend"
-            // disabled={countDown > 0}
+            disabled={countDown > 0}
           />
         </View>
         {countDown > 0 && (
