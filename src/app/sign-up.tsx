@@ -87,34 +87,11 @@ const SignUpScreen = () => {
     onError
   );
 
-  // const { mutate: checkSessionID, isPending: checkSessionIDLoading } =
-  //   usePostNoPayload(
-  //     `/api/v1/user/checkSession/${sessionId || ""}`,
-  //     onSuccess,
-  //     onError
-  //   );
-
-  // useEffect(() => {
-  //   checkSessionID();
-  // }, []);
-
   const onSubmitHandler = async (data: formData) => {
     setError("");
     setEmail(data.userEmail);
     mutateSignUp(data);
   };
-
-  // if (checkSessionIDLoading) {
-  //   return (
-  //     <View>
-  //       <Text>Checking Session</Text>
-  //     </View>
-  //   );
-  // }
-
-  // if (sessionEmail && sessionId) {
-  //   return <Redirect href={`/${sessionEmail}`} />;
-  // }
 
   return (
     <KeyboardShift classname=" flex-1 justify-center items-center gap-5 bg-white">
