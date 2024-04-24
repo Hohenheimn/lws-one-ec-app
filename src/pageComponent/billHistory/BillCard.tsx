@@ -19,7 +19,7 @@ const BillCard = ({ bill, onPress }: Props) => {
         </Text>
         <Text
           className={twMerge(
-            "text-xs font-poppins text-white w-12 p-1 text-center rounded-full",
+            "text-xs font-poppins text-white w-16 p-1 text-center rounded-full",
             bill?.billPaid ? "bg-green-400" : "bg-red-400"
           )}
         >
