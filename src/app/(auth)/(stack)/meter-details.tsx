@@ -42,7 +42,7 @@ const MeterDetails = () => {
 
   const onSubmit = () => {
     mutate(
-      { meterId: Number(data.data.meterNumber) },
+      { meterId: Number(data.data.id) },
       { onSuccess: () => setIsOpen(true) }
     );
   };
