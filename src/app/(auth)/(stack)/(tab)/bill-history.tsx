@@ -27,7 +27,7 @@ const BillHistoryScreen = () => {
   );
 
   return (
-    <ScrollView className=" bg-white">
+    <ScrollView className=" bg-white" contentContainerStyle={{ flex: 1 }}>
       {!userData?.data && (
         <Paragraph classname=" text-center">No Account Found</Paragraph>
       )}
