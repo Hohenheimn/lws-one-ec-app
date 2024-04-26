@@ -1,10 +1,10 @@
 import React from "react";
 import { Link, useRouter } from "expo-router";
 import { View, Text, TouchableOpacity, Image } from "react-native";
+import { StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Octicons } from "@expo/vector-icons";
 
-import { AccountRegistry } from "../types/AccountRegistry";
 import { dateString } from "../utils/dateHelper";
 import { formatNumber } from "../utils/numberHelpers";
 import Button from "./Button";
@@ -27,10 +27,10 @@ const Header = ({
   const router = useRouter();
 
   return (
-    <SafeAreaView className="bg-green-300 p-4 space-y-2 rounded-b-3xl">
+    <SafeAreaView className="bg-primary p-4 space-y-2 rounded-b-3xl pb-0">
       <View className="justify-between items-center flex-row">
         <Image
-          source={require("../../assets/images/logo.png")}
+          source={require("../../assets/images/logo-black.png")}
           style={{ width: 80, height: 20, objectFit: "contain" }}
         />
         <TouchableOpacity className="flex justify-center items-center p-2 rounded-full w-10 h-10">

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Controller } from "react-hook-form";
-import { View, Text, TextInput, TextInputProps } from "react-native";
+import { View, Text, TextInput, TextInputProps, Pressable } from "react-native";
 import { twMerge } from "tailwind-merge";
-
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 type Props = {
   classname?: string;
@@ -25,13 +26,13 @@ const InputController = ({
   ...rest
 }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
-
+  const [showPass, setShowPass] = useState(false);
   return (
     <Controller
       control={control}
       render={({ field: { onChange, onBlur, value } }) => {
         return (
-          <View className={twMerge("my-2", classname)}>
+          <View className={twMerge("my-2 w-full", classname)}>
             {label && (
               <Text
                 className={twMerge("font-poppins", isFocused && "text-primary")}
@@ -39,22 +40,39 @@ const InputController = ({
                 {label}
               </Text>
             )}
-            <TextInput
-              className={twMerge(
-                "border-b border-gray-400 font-poppins py-2",
-                isFocused && "border-primary"
+            <View className=" flex-row items-center w-full border-b border-gray-400">
+              <TextInput
+                className={twMerge(
+                  " font-poppins py-2 flex-1",
+                  isFocused && "border-primary"
+                )}
+                onBlur={() => {
+                  setIsFocused(false);
+                  onBlur();
+                }}
+                onChangeText={onChange}
+                value={value}
+                secureTextEntry={secured && !showPass}
+                keyboardType={type}
+                {...rest}
+                onFocus={() => setIsFocused(true)}
+              />
+              {secured && (
+                <Pressable
+                  onPress={() => setShowPass(!showPass)}
+                  className=" w-7 h-7 justify-center items-center"
+                >
+                  {showPass ? (
+                    <View>
+                      <Entypo name="eye-with-line" size={20} color="black" />
+                    </View>
+                  ) : (
+                    <AntDesign name="eye" size={20} color="black" />
+                  )}
+                </Pressable>
               )}
-              onBlur={() => {
-                setIsFocused(false);
-                onBlur();
-              }}
-              onChangeText={onChange}
-              value={value}
-              secureTextEntry={secured}
-              keyboardType={type}
-              {...rest}
-              onFocus={() => setIsFocused(true)}
-            />
+            </View>
+
             {errors[name]?.message && (
               <Text className="font-poppins text-red-500 mt-1">
                 {errors[name]?.message}
