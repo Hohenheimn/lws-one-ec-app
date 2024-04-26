@@ -61,14 +61,15 @@ const Header = ({
         </Text>
       </View>
 
-      {isConnected ? (
+      {isConnected && (
         <Button
           title="Pay Now"
           appearance="secondary"
           className="rounded-full"
           onPress={() => router.push("/payment")}
         />
-      ) : (
+      )}
+      {!isConnected && (
         <Button
           title="Link to Meter Account"
           appearance="secondary"

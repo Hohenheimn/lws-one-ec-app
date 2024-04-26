@@ -24,7 +24,6 @@ const AccountPage = () => {
     await removeData("userToken");
     router.push("/");
   };
-
   return (
     <ScrollView
       contentContainerStyle={{
