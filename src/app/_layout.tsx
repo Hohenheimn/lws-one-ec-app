@@ -52,6 +52,14 @@ const RootLayoutNav = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="forgot-password/index"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="forgot-password/[email]/index"
+            options={{ headerShown: false }}
+          />
         </Stack>
       </QueryClientProvider>
       <GlobalModalMessage />
