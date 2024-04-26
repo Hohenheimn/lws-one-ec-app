@@ -127,7 +127,7 @@ const HomePage = () => {
           data={transaction?.data.filter(
             (filterItem) => !filterItem.bill.billPaid
           )}
-          scrollEnabled={false}
+          scrollEnabled={true}
           refreshing={transactionListFetching}
           onRefresh={refetchTransactionList}
           contentContainerStyle={{ gap: 10 }}
@@ -153,10 +153,10 @@ const HomePage = () => {
           data={transaction?.data.filter(
             (filterItem) => filterItem.bill.billPaid
           )}
-          scrollEnabled={false}
+          scrollEnabled={true}
           refreshing={transactionListFetching}
           onRefresh={refetchTransactionList}
-          contentContainerStyle={{ gap: 10 }}
+          contentContainerStyle={{ gap: 10, paddingBottom: 10 }}
           ListEmptyComponent={() => (
             <Paragraph classname=" text-center">No Transaction Found</Paragraph>
           )}
