@@ -69,6 +69,7 @@ const HomePage = () => {
   );
 
   const billUnpaidData: BillData | undefined = billUnpaid?.data[0];
+
   return (
     <ScrollView
       contentContainerStyle={{

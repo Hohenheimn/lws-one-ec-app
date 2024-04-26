@@ -26,7 +26,7 @@ const TransactionPage = () => {
   );
 
   return (
-    <ScrollView className="bg-white">
+    <ScrollView className="bg-white" contentContainerStyle={{ flex: 1 }}>
       {!userData?.data && (
         <Paragraph classname=" text-center">No Account Found</Paragraph>
       )}
@@ -36,7 +36,10 @@ const TransactionPage = () => {
         scrollEnabled={false}
         refreshing={transactionListFetching}
         onRefresh={refetchTransactionList}
-        contentContainerStyle={{ padding: 12 }}
+        contentContainerStyle={{
+          padding: 12,
+          flex: 1,
+        }}
         ListEmptyComponent={() => (
           <Paragraph classname=" text-center">No Transaction Found</Paragraph>
         )}

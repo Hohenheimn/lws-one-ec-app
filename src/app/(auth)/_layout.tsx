@@ -26,27 +26,27 @@ const AuthLayout = () => {
     router.push("/");
   };
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     signOutHandler();
-  //   }
-  // }, [isLoading, isError]);
+  useEffect(() => {
+    if (isError) {
+      signOutHandler();
+    }
+  }, [isLoading, isError]);
 
-  // if (isLoading) {
-  //   return (
-  //     <>
-  //       <View className=" flex-1 justify-center items-center bg-primary">
-  //         <Image
-  //           source={require("../../../assets/images/icon.png")}
-  //           className=" h-64 w-64 object-contain"
-  //         />
-  //         <Animated.Text className=" text-white font-bold text-2xl animate-pulse">
-  //           Loading . . .
-  //         </Animated.Text>
-  //       </View>
-  //     </>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <>
+        <View className=" flex-1 justify-center items-center bg-primary">
+          <Image
+            source={require("../../../assets/images/icon.png")}
+            className=" h-64 w-64 object-contain"
+          />
+          <Animated.Text className=" text-white font-bold text-2xl animate-pulse">
+            Loading . . .
+          </Animated.Text>
+        </View>
+      </>
+    );
+  }
 
   if (!userToken) {
     return <Redirect href="/" />;

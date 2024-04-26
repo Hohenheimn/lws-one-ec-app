@@ -52,15 +52,8 @@ const MeterDetails = () => {
 
   const onSubmit = () => {
     mutate(
-      { meterId: Number(data.data.meterNumber) },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: ["user-data"],
-          });
-          setIsOpen(true);
-        },
-      }
+      { meterId: Number(data.data.id) },
+      { onSuccess: () => setIsOpen(true) }
     );
   };
 

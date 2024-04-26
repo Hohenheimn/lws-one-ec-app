@@ -111,8 +111,7 @@ const VerificationScreen = () => {
           Enter Verification code
         </Heading>
         <Paragraph classname=" text-gray-400 text-center">
-          We are automatically detecting a Email send to you email{" "}
-          {`(${emailVerification})`}
+          We have sent the one-time password to {`(${emailVerification})`}
         </Paragraph>
 
         <View className="mb-2 w-full items-center">

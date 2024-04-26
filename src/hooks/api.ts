@@ -22,7 +22,7 @@ export const useFetch = <TData>(
         })
         .then((res) => {
           // console.log(queryKey + ": " + res?.data?.message);
-          return res.data;
+          return res.data || {};
         })
         .catch((err) => {
           console.log(queryKey + " " + err);

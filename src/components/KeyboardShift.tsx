@@ -1,5 +1,5 @@
 import * as React from "react";
-import { KeyboardAvoidingView, Platform } from "react-native";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
 import { twMerge } from "tailwind-merge";
 
 type Props = {
@@ -12,7 +12,7 @@ export const KeyboardShift = ({ children, classname }: Props) => {
     <KeyboardAvoidingView
       keyboardVerticalOffset={40}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      className={twMerge(classname, "flex-1")}
+      className={twMerge(classname, "flex-1 pb-[500px]")}
       enabled
     >
       {children}

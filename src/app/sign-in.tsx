@@ -81,8 +81,8 @@ const SignInScreen = () => {
         <InputController
           type="email-address"
           classname=" mb-5"
-          placeholder="Enter your Username here"
-          label="Username"
+          placeholder="Enter your Email here"
+          label="Email Address"
           errors={errors}
           name={"userEmail"}
           control={control}
@@ -109,7 +109,7 @@ const SignInScreen = () => {
         />
 
         <Paragraph classname=" text-center">
-          Don't have an Account ?{" "}
+          No Account yet?{" "}
           <Link href={"/sign-up"} className=" font-bold text-primary">
             Sign Up Here
           </Link>
