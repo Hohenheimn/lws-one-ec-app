@@ -73,7 +73,13 @@ const ForgotPasswordVerificationScreen = () => {
 
   const onSubmitHandler = async () => {
     // verify({ otp: code });
-    router.push(`/forgot-password/${email}/create-new-password`);
+
+    router.push({
+      pathname: `/forgot-password/[email]/create-new-password/`,
+      params: {
+        email: email,
+      },
+    });
   };
 
   const cancelHandler = async () => {
