@@ -35,7 +35,7 @@ const LandingScreen = () => {
         <Button
           title="Sign In"
           appearance="primary"
-          buttonClassname="mb-2"
+          buttonClassname=""
           onPress={() => {
             router.push("/sign-in");
           }}

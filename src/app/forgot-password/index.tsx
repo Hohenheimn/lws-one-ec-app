@@ -30,7 +30,6 @@ const ForgotPasswordScreen = () => {
     control,
     reset,
     handleSubmit,
-    setValue,
     formState: { errors, defaultValues },
   } = useForm<formData>({
     defaultValues: defaultValue,
@@ -53,7 +52,7 @@ const ForgotPasswordScreen = () => {
 
   const onSubmitHandler = async (data: formData) => {
     router.push({
-      pathname: "/forgot-password/[email]/",
+      pathname: `/forgot-password/[email]/`,
       params: data,
     });
     // mutate(data);

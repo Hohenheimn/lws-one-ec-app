@@ -8,7 +8,6 @@ import Button from "@/src/components/Button";
 import ErrorMessage from "@/src/components/ErrorMessage";
 import Heading from "@/src/components/Heading";
 import { KeyboardShift } from "@/src/components/KeyboardShift";
-import MessageModal from "@/src/components/MessageModal";
 import OTPInputField from "@/src/components/OTPInputField";
 import Paragraph from "@/src/components/Paragraph";
 import { retrieveData, removeData } from "@/src/helpers";
@@ -20,11 +19,10 @@ const ForgotPasswordVerificationScreen = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const [error, setError] = useState("");
-  const [modal, setModal] = useState(false);
 
   const [code, setCode] = useState("");
 
-  const { emailVerification } = useLocalSearchParams();
+  const { email }: { email: string } = useLocalSearchParams();
 
   const [countDown, setCoundown] = useState(180);
 
@@ -38,7 +36,7 @@ const ForgotPasswordVerificationScreen = () => {
   });
 
   const onSuccessVerify = () => {
-    setModal(true);
+    router.push("/forgot-password/");
   };
 
   const onErrorVerify = (res: any) => {
@@ -75,31 +73,15 @@ const ForgotPasswordVerificationScreen = () => {
 
   const onSubmitHandler = async () => {
     // verify({ otp: code });
-    setModal(true);
+    router.push(`/forgot-password/${email}/create-new-password`);
   };
 
   const cancelHandler = async () => {
     router.push("/sign-in");
   };
 
-  const onClose = async () => {
-    setModal(false);
-    await removeData("otpSessionId");
-    await removeData("otpSessionEmail");
-    router.push("/sign-in");
-  };
-
   return (
     <KeyboardShift classname="flex-1 justify-center items-center">
-      <MessageModal
-        visible={modal}
-        title="Verification Successful"
-        description="You can now login to your account"
-        buttonName="Go to Sign In"
-        onPress={onClose}
-        onRequestClose={onClose}
-      />
-
       <View className="flex-[0.8] p-4 justify-center items-center">
         <Image
           source={require("../../../../assets/images/verification.png")}
@@ -112,7 +94,7 @@ const ForgotPasswordVerificationScreen = () => {
           Enter Verification code
         </Heading>
         <Paragraph classname=" text-gray-400 text-center">
-          We have sent the one-time password to {`(${emailVerification})`}
+          We have sent the one-time password to {`(${email})`}
         </Paragraph>
 
         <View className="mb-2 w-full items-center">
