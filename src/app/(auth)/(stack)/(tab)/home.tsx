@@ -92,84 +92,92 @@ const HomePage = () => {
         />
       }
     >
-      <Header
-        name={data?.data.userData.userFname}
-        isConnected={!!meterID}
-        meterNumber={meterNumber}
-        outstandingAmount={Number(billUnpaidData?.totalAmountToPay)}
-        dueDate={`${Number(billUnpaidData?.dueDate)}`}
-      />
-      <View className="flex-1 overflow-hidden mx-4 my-2 p-3 border border-gray-300 rounded-lg">
-        <Text className="text-2xl font-medium font-poppins-md mb-4">
-          Power Usage
-        </Text>
-        <BarChart
-          height={200}
-          data={barChart}
-          frontColor={"#4ade80"}
-          showYAxisIndices={false}
-          //removes lines in number
-          xAxisThickness={0}
-          yAxisThickness={0}
-          // showGradient
-          //removes ant lines
-          hideRules
-          // gradientColor={"#bbf7d0"}
-          barBorderRadius={4}
-          barWidth={40}
+      <View>
+        <Header
+          name={data?.data.userData.userFname}
+          isConnected={!!meterID}
+          meterNumber={meterNumber}
+          outstandingAmount={Number(billUnpaidData?.totalAmountToPay)}
+          dueDate={`${Number(billUnpaidData?.dueDate)}`}
         />
-      </View>
-      <View className="max-h-64 mx-4 my-2 p-3 border border-gray-300 rounded-lg">
-        <Text className="text-2xl font-medium font-poppins-md mb-5">
-          Unpaid Due
-        </Text>
-        <FlatList
-          data={transaction?.data.filter(
-            (filterItem) => !filterItem.bill.billPaid
-          )}
-          scrollEnabled={false}
-          refreshing={transactionListFetching}
-          onRefresh={refetchTransactionList}
-          contentContainerStyle={{ gap: 10 }}
-          ListEmptyComponent={() => (
-            <Paragraph classname=" text-center">No Unpaid Found</Paragraph>
-          )}
-          renderItem={({ item, index }) => {
-            return <BillDashboardItem key={index} item={item} />;
-          }}
-          refreshControl={
-            <RefreshControl
-              refreshing={transactionListFetching}
-              onRefresh={refetchTransactionList}
-            />
-          }
-        />
-      </View>
-      <View className="max-h-64 mx-4 my-2 p-3 border border-gray-300 rounded-lg">
-        <Text className="text-2xl font-medium font-poppins-md mb-5">
-          Last Transaction
-        </Text>
-        <FlatList
-          data={transaction?.data.filter(
-            (filterItem) => filterItem.bill.billPaid
-          )}
-          scrollEnabled={false}
-          refreshing={transactionListFetching}
-          onRefresh={refetchTransactionList}
-          contentContainerStyle={{ gap: 10 }}
-          ListEmptyComponent={() => (
-            <Paragraph classname=" text-center">No Transaction Found</Paragraph>
-          )}
-          renderItem={({ item, index }) => {
-            return <BillDashboardItem key={index} item={item} />;
-          }}
-          refreshControl={
-            <RefreshControl
-              refreshing={transactionListFetching}
-              onRefresh={refetchTransactionList}
-            />
-          }
-        />
+        <View className="flex-1 overflow-hidden mx-4 my-2 p-3 border border-gray-300 rounded-lg">
+          <Text className="text-2xl font-medium font-poppins-md mb-4">
+            Power Usage
+          </Text>
+          <BarChart
+            height={200}
+            data={barChart}
+            frontColor={"#4ade80"}
+            showYAxisIndices={false}
+            //removes lines in number
+            xAxisThickness={0}
+            yAxisThickness={0}
+            // showGradient
+            //removes ant lines
+            hideRules
+            // gradientColor={"#bbf7d0"}
+            barBorderRadius={4}
+            barWidth={40}
+          />
+        </View>
+        <View className="max-h-64 mx-4 my-2 p-3 border border-gray-300 rounded-lg">
+          <FlatList
+            data={transaction?.data
+              .slice(0, 3)
+              .filter((filterItem) => !filterItem.bill.billPaid)}
+            scrollEnabled={false}
+            refreshing={transactionListFetching}
+            onRefresh={refetchTransactionList}
+            contentContainerStyle={{ gap: 10 }}
+            ListHeaderComponent={() => (
+              <Text className="text-2xl font-medium font-poppins-md mb-5">
+                Unpaid Due
+              </Text>
+            )}
+            ListEmptyComponent={() => (
+              <Paragraph classname=" text-center">No Unpaid Found</Paragraph>
+            )}
+            renderItem={({ item, index }) => {
+              return <BillDashboardItem key={index} item={item} />;
+            }}
+            refreshControl={
+              <RefreshControl
+                refreshing={transactionListFetching}
+                onRefresh={refetchTransactionList}
+              />
+            }
+          />
+        </View>
+        <View className=" mx-4 my-2 p-3 border border-gray-300 rounded-lg">
+          <FlatList
+            data={transaction?.data
+              .slice(0, 3)
+              .filter((filterItem) => filterItem.bill.billPaid)}
+            scrollEnabled={false}
+            ListHeaderComponent={() => (
+              <Text className="text-2xl font-medium font-poppins-md mb-5">
+                Last Transaction
+              </Text>
+            )}
+            refreshing={transactionListFetching}
+            onRefresh={refetchTransactionList}
+            contentContainerStyle={{ gap: 10, paddingBottom: 10 }}
+            ListEmptyComponent={() => (
+              <Paragraph classname=" text-center">
+                No Transaction Found
+              </Paragraph>
+            )}
+            renderItem={({ item, index }) => {
+              return <BillDashboardItem key={index} item={item} />;
+            }}
+            refreshControl={
+              <RefreshControl
+                refreshing={transactionListFetching}
+                onRefresh={refetchTransactionList}
+              />
+            }
+          />
+        </View>
       </View>
     </ScrollView>
   );

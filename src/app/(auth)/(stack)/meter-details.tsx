@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, Modal, Image } from "react-native";
 
+import { useQueryClient } from "@tanstack/react-query";
+
+import MessageModal from "@/src/components/MessageModal";
+
 import { useFetch, usePost } from "@/src/hooks/api";
+
 import { MeterAccountDetails } from "@/src/types/MeterAccountDetails";
 
 import Button from "../../../components/Button";
@@ -11,9 +16,14 @@ import ScreenError from "../../../components/ScreenError";
 import ScreenLoader from "../../../components/ScreenLoader";
 
 const MeterDetails = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const { coop, meterNumber } = useLocalSearchParams<any>();
-  const { data, isLoading } = useFetch<MeterAccountDetails>(
+  const {
+    data,
+    isLoading,
+    isError: meterError,
+  } = useFetch<MeterAccountDetails>(
     `/api/v1/meterAccount/${meterNumber}/${coop}`,
     ["meter-number"]
   );

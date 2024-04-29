@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ScrollView, RefreshControl, FlatList } from "react-native";
+import { ScrollView, RefreshControl, FlatList, View } from "react-native";
+
 import Paragraph from "@/src/components/Paragraph";
 import { useFetch } from "@/src/hooks/api";
 import TransactionCard from "@/src/pageComponent/transactionHistory/TransactionCard";
@@ -26,19 +27,18 @@ const TransactionPage = () => {
   );
 
   return (
-    <ScrollView className="bg-white" contentContainerStyle={{ flex: 1 }}>
+    <View className="bg-white flex-1">
       {!userData?.data && (
         <Paragraph classname=" text-center">No Account Found</Paragraph>
       )}
 
       <FlatList
         data={transactionList?.data}
-        scrollEnabled={false}
+        scrollEnabled={true}
         refreshing={transactionListFetching}
         onRefresh={refetchTransactionList}
         contentContainerStyle={{
           padding: 12,
-          flex: 1,
         }}
         ListEmptyComponent={() => (
           <Paragraph classname=" text-center">No Transaction Found</Paragraph>
@@ -65,7 +65,7 @@ const TransactionPage = () => {
         transaction={transaction}
         onClose={() => setTransaction(null)}
       />
-    </ScrollView>
+    </View>
   );
 };
 

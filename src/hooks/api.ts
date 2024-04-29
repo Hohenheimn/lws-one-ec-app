@@ -20,7 +20,14 @@ export const useFetch = <TData>(
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => res.data);
+        .then((res) => {
+          // console.log(queryKey + ": " + res?.data?.message);
+          return res.data || {};
+        })
+        .catch((err) => {
+          console.log(queryKey + " " + err);
+          console.log(err?.message);
+        });
     },
     queryKey: queryKey,
     enabled: enabled,

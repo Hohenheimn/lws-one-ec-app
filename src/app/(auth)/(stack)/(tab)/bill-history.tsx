@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, ScrollView, RefreshControl, FlatList } from "react-native";
+import { Text, ScrollView, RefreshControl, FlatList, View } from "react-native";
 
 import Paragraph from "@/src/components/Paragraph";
 import { useFetch } from "@/src/hooks/api";
@@ -27,14 +27,14 @@ const BillHistoryScreen = () => {
   );
 
   return (
-    <ScrollView className=" bg-white" contentContainerStyle={{ flex: 1 }}>
+    <View className=" bg-white flex-1">
       {!userData?.data && (
         <Paragraph classname=" text-center">No Account Found</Paragraph>
       )}
 
       <FlatList
         data={billList?.data}
-        scrollEnabled={false}
+        scrollEnabled={true}
         refreshing={billListFetching}
         onRefresh={refetchBillList}
         contentContainerStyle={{ padding: 12 }}
@@ -60,7 +60,7 @@ const BillHistoryScreen = () => {
         }
       />
       <BillModal bill={bill} onClose={() => setBill(null)} />
-    </ScrollView>
+    </View>
   );
 };
 

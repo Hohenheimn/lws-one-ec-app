@@ -4,14 +4,12 @@ import { Modal, View } from "react-native";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-
 import Button from "@/src/components/Button";
 import ErrorMessage from "@/src/components/ErrorMessage";
 import Heading from "@/src/components/Heading";
 import InputController from "@/src/components/InputController";
 import MessageModal from "@/src/components/MessageModal";
 import { usePost } from "@/src/hooks/api";
-
 
 type Props = {
   visible: boolean;
@@ -56,14 +54,12 @@ const ChangePasswordModal = ({ visible, onRequestClose }: Props) => {
   };
 
   const { mutate: updatePassword, isPending: updatingPassword } = usePost(
-    "/api/v1/user/password",
-    onSuccess,
-    onError
+    "/api/v1/user/password"
   );
 
   const onSubmit = (data: formData) => {
     setError("");
-    updatePassword(data);
+    updatePassword(data, { onSuccess: onSuccess, onError: onError });
   };
   return (
     <Modal
@@ -82,7 +78,7 @@ const ChangePasswordModal = ({ visible, onRequestClose }: Props) => {
           onRequestClose();
         }}
       />
-      <View className=" flex-1 p-10 w-full  ">
+      <View className=" flex-1 p-10 w-full ">
         <Heading size={"large"} classname="mb-5">
           Change Password
         </Heading>

@@ -81,23 +81,31 @@ const SignInScreen = () => {
         <InputController
           type="email-address"
           classname=" mb-5"
-          placeholder="Enter your Username here"
-          label="Username"
+          placeholder="Enter your Email here"
+          label="Email Address"
           errors={errors}
           name={"userEmail"}
           control={control}
         />
 
-        <InputController
-          type="default"
-          secured
-          classname=" mb-5"
-          placeholder="Enter your Password here"
-          label="Password"
-          errors={errors}
-          name={"userPassword"}
-          control={control}
-        />
+        <View className=" mb-5 justify-end items-end">
+          <InputController
+            type="default"
+            secured
+            placeholder="Enter your Password here"
+            label="Password"
+            errors={errors}
+            name={"userPassword"}
+            control={control}
+          />
+          <Link
+            href={"/forgot-password"}
+            className=" font-bold text-primary text-end"
+          >
+            Forgot Password?
+          </Link>
+        </View>
+
         {error && <ErrorMessage message={error} />}
 
         <Button
@@ -109,8 +117,8 @@ const SignInScreen = () => {
         />
 
         <Paragraph classname=" text-center">
-          Don't have an Account ?{" "}
-          <Link href={"/sign-up"} className=" font-bold text-primary">
+          No Account yet?{" "}
+          <Link href={"/sign-up"} className=" font-bold text-primary text-bold">
             Sign Up Here
           </Link>
         </Paragraph>

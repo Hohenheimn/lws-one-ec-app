@@ -26,22 +26,22 @@ const LandingScreen = () => {
 
       <View className=" pb-20 pt-5 space-y-5 px-5">
         <Heading size={"large"} classname=" mb-2 text-center font-poppins-b">
-          Welcome, To OneEC!
+          Welcome to OneEC!
         </Heading>
         <Paragraph classname=" text-gray-400 mb-5 text-center">
-          Pay bills, manage your account, and stay in control - all in one
-          place.
+          Pay your electric bills, monitor usage and manage your account - all
+          in one place.
         </Paragraph>
         <Button
           title="Sign In"
           appearance="primary"
-          buttonClassname="mb-2"
+          buttonClassname=""
           onPress={() => {
             router.push("/sign-in");
           }}
         />
         <Paragraph classname=" text-center">
-          Don't have an Account ?{" "}
+          No Account yet?{" "}
           <Link href={"/sign-up"} className=" font-bold text-primary">
             Sign Up Here
           </Link>
