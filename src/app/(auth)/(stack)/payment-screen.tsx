@@ -4,6 +4,7 @@ import { WebView } from "react-native-webview";
 
 const PaymentScreen = () => {
   const data = useLocalSearchParams();
+  console.log(data);
 
   return <WebView source={{ uri: `${data.url}` }} style={{ flex: 1 }} />;
 };

@@ -1,32 +1,36 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { useRouter } from "expo-router";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+
+import PaymentCard from "@/src/components/PaymentCard";
 import ScreenError from "@/src/components/ScreenError";
 import ScreenLoader from "@/src/components/ScreenLoader";
 import { retrieveData } from "@/src/helpers";
 import { usePost } from "@/src/hooks/api";
-import axios from "axios";
-import { useRouter } from "expo-router";
-import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
 
 const Payment = () => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [openEWallet, setOpenEWallet] = useState(false);
+  const [openCard, setOpenCard] = useState(false);
   // const [paymentMethod, setPaymentMethod] = useState("");
 
   const {
     mutate: gcash,
-    isError,
+    isError: gcashError,
     isPending,
-  } = usePost(`/api/v1/payment/request/?method=gcash`);
+  } = usePost(`/api/v1/payment/request?method=gcash`);
+
   const {
     mutate: paymaya,
     isError: mayaError,
     isPending: mayaIsPending,
-  } = usePost(`/api/v1/payment/request/?method=paymaya`);
+  } = usePost(`/api/v1/payment/request?method=paymaya`);
 
   if (isPending || mayaIsPending) {
     return <ScreenLoader />;
   }
-  if (isError || mayaError) {
+  if (gcashError || mayaError) {
     return (
       <ScreenError
         message="Payment failed"
@@ -63,6 +67,20 @@ const Payment = () => {
     );
   };
 
+  const handleUnionBankPayment = () => {
+    paymaya(
+      {},
+      {
+        onSuccess: async (data) => {
+          router.push({
+            pathname: "/payment-screen",
+            params: { url: data.data.data.url },
+          });
+        },
+      }
+    );
+  };
+
   return (
     <View className="flex-1 bg-white">
       <View className="flex-[0.6] justify-center items-center">
@@ -80,7 +98,7 @@ const Payment = () => {
         <TouchableOpacity
           className="border border-gray-500 rounded-lg p-4"
           onPress={() => {
-            setIsOpen(!isOpen);
+            setOpenEWallet(!openEWallet);
           }}
         >
           <View className="flex-row items-end justify-between">
@@ -96,48 +114,33 @@ const Payment = () => {
             />
           </View>
         </TouchableOpacity>
-        {isOpen && (
+        {openEWallet && (
           <>
-            <TouchableOpacity
-              className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between"
-              onPress={handleGcashPayment}
-            >
-              <View className="flex-1">
-                <Text className="font-poppins-sb font-semibold text-lg">
-                  GCASH
-                </Text>
-                <Text className="text-gray-600">
-                  Payment {"(min. ₱50)"} should be completed within 30 mins.
-                  Accesible 24/7 and may entail 2% additional fee.
-                </Text>
-              </View>
-              <Image
-                source={require("../../../../assets/images/gcash_logo.png")}
-                className="w-28 h-6"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={handleMayaPayment}
-              className="border-b-[1px] border-gray-300 rounded-lg p-2 flex-row items-start justify-between"
-            >
-              <View className="flex-1">
-                <Text className="font-poppins-sb font-semibold text-lg">
-                  Paymaya
-                </Text>
-                <Text className="text-gray-600">
-                  Payment {"(min. ₱50)"} should be completed within 30 mins.
-                  Accesible 24/7 and may entail 2% additional fee.
-                </Text>
-              </View>
-              <Image
-                source={require("../../../../assets/images/maya.png")}
-                style={{ objectFit: "contain" }}
-                className="w-[60px] h-6"
-              />
-            </TouchableOpacity>
+            <PaymentCard
+              paymentHandler={handleGcashPayment}
+              logoUrl={require("../../../../assets/images/gcash-logo.png")}
+              name={"GCASH"}
+              description={
+                "Payment (min. ₱50) should be completed within 30 mins.Accesible 24/7 and may entail 2% additional fee."
+              }
+            />
+
+            <PaymentCard
+              paymentHandler={handleMayaPayment}
+              logoUrl={require("../../../../assets/images/maya.png")}
+              name={"Paymaya"}
+              description={
+                "Payment (min. ₱50) should be completed within 30 mins.Accesible 24/7 and may entail 2% additional fee."
+              }
+            />
           </>
         )}
-        <TouchableOpacity className="border border-gray-500 rounded-lg p-3">
+        <TouchableOpacity
+          className="border border-gray-500 rounded-lg p-3"
+          onPress={() => {
+            setOpenCard(!openCard);
+          }}
+        >
           <View className="flex-row items-center justify-between ">
             <Text className="font-poppins-md font-medium flex-1">
               Card Payment
@@ -148,6 +151,16 @@ const Payment = () => {
             />
           </View>
         </TouchableOpacity>
+        {openCard && (
+          <PaymentCard
+            paymentHandler={handleUnionBankPayment}
+            logoUrl={require("../../../../assets/images/unionbank-logo.png")}
+            name={"Union Bank"}
+            description={
+              "Payment (min. ₱50) should be completed within 30 mins.Accesible 24/7 and may entail 2% additional fee."
+            }
+          />
+        )}
       </View>
     </View>
   );
